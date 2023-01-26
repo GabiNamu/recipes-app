@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
-function Login({ history }) {
+function Login() {
   const [user, setUser] = useState({
     email: '',
     password: '',
     validation: true,
   });
+  const history = useHistory();
 
   const handleChange = ({ target: { name, value } }) => {
     const isEmailValid = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
     const isValid = isEmailValid.test(user.email) && user.password.length > Number('5');
 
-    console.log(isValid);
     setUser({
       ...user,
       [name]: value,
