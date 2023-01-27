@@ -3,7 +3,7 @@ import React, { createContext, useMemo, useState } from 'react';
 export const Context = createContext();
 
 function ApiProvider({ children }) {
-  const [recipeList, setRecipeList] = useState([]);
+  const [recipeList, setRecipeList] = useState({});
 
   const value = useMemo(() => ({ recipeList, setRecipeList }), [recipeList]);
 

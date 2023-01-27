@@ -10,7 +10,7 @@ test('Header', () => {
   const profileIcon = screen.getByRole('img', {
     name: /ícone de perfil/i,
   });
-  const searchIcon = screen.getByRole('img', {
+  const searchIcon = screen.queryByRole('img', {
     name: /ícone de pesquisa/i,
   });
   const title = screen.getByRole('heading', {
@@ -20,6 +20,7 @@ test('Header', () => {
   expect(profileIcon).toBeInTheDocument();
   expect(searchIcon).toBeInTheDocument();
   expect(title).toBeInTheDocument();
+  expect(history.location.pathname).toBe('/meals');
 
   userEvent.click(searchIcon);
 
@@ -32,4 +33,5 @@ test('Header', () => {
 
   userEvent.click(profileIcon);
   expect(history.location.pathname).toBe('/profile');
+  expect(searchIcon).not.toBeInTheDocument();
 });
