@@ -2,10 +2,10 @@ import React from 'react';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import renderWithRouter from './helpers/renderWithRouter';
-import Meals from '../pages/Meals';
+import Recipes from '../pages/Recipes';
 
 test('Header', () => {
-  const { history } = renderWithRouter(<Meals />);
+  const { history } = renderWithRouter(<Recipes />);
 
   const profileIcon = screen.getByRole('img', {
     name: /ícone de perfil/i,
