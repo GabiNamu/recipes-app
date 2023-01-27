@@ -21,8 +21,7 @@ function SearchBar() {
         search.inputText,
         search.radio,
       );
-      // console.log('resMeal', resultMeals);
-      // console.log('lngth', recipeList.meals.length);
+
       setRecipeList(resultMeals);
       if (resultMeals && resultMeals.meals.length === 1) {
         history.push(`/meals/${resultMeals.meals[0].idMeal}`);
