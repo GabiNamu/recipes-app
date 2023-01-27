@@ -27,7 +27,7 @@ function RecipeCard({ recipeObj }) {
     };
     fetchRecipes();
   }, []);
-
+  console.log(recipeList);
   return (
     <div>
       <ul>
