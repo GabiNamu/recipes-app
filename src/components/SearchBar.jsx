@@ -6,7 +6,7 @@ import { Context } from '../context/provider/ApiProvider';
 
 function SearchBar() {
   const [search, setSearch] = useState({ radio: '', inputText: '' });
-  const { setRecipeList } = useContext(Context);
+  const { setRecipeList, recipeList } = useContext(Context);
   const history = useHistory();
   const handleChange = (e) => {
     setSearch({
@@ -24,6 +24,7 @@ function SearchBar() {
       // console.log('resMeal', resultMeals);
       // console.log('lngth', recipeList.meals.length);
       setRecipeList(resultMeals);
+      console.log(recipeList);
       if (resultMeals && resultMeals.meals.length === 1) {
         history.push(`/meals/${resultMeals.meals[0].idMeal}`);
       }
