@@ -496,3 +496,35 @@ export const mock = { meals: [
   },
 
 ] };
+
+export const mockIngredients = { meals: [
+  {
+    strMeal: 'Burek',
+    strMealThumb: 'https://www.themealdb.com/images/media/meals/tkxquw1628771028.jpg',
+    idMeal: '53060',
+  },
+  {
+    strMeal: 'Tuna and Egg Briks',
+    strMealThumb: 'https://www.themealdb.com/images/media/meals/2dsltq1560461468.jpg',
+    idMeal: '52975',
+  },
+],
+};
+
+export const mockFirstLetter = { meals: [
+  {
+    strMeal: 'Dal fry',
+    strMealThumb: 'https://www.themealdb.com/images/media/meals/wuxrtu1483564410.jpg',
+    idMeal: '52785',
+  },
+  {
+    strMeal: 'Dundee cake',
+    strMealThumb: 'https://www.themealdb.com/images/media/meals/wxyvqq1511723401.jpg',
+    idMeal: '52899',
+  },
+  {
+    strMeal: 'Duck Confit',
+    strMealThumb: 'https://www.themealdb.com/images/media/meals/wvpvsu1511786158.jpg',
+    idMeal: '52907',
+  },
+] };

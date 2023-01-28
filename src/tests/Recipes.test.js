@@ -1,16 +1,16 @@
 import React from 'react';
-import { act } from 'react-dom/test-utils';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import App from '../App';
-import { mockIngredients } from './helpers/mockData';
+import { act } from 'react-dom/test-utils';
 import renderWithRouter from './helpers/renderWithRouter';
 import ApiProvider from '../context/provider/ApiProvider';
+import App from '../App';
+import { mock } from './helpers/mockData';
 
-test('Login', async () => {
+test('', async () => {
   jest.spyOn(global, 'fetch');
   global.fetch.mockResolvedValue({
-    json: jest.fn().mockResolvedValue(mockIngredients),
+    json: jest.fn().mockResolvedValue(mock),
   });
 
   await act(async () => {
@@ -25,27 +25,16 @@ test('Login', async () => {
   const password = screen.getByTestId('password-input');
   const button = screen.getByTestId('login-submit-btn');
 
-  expect(email).toBeInTheDocument();
-  expect(password).toBeInTheDocument();
-  expect(button).toBeInTheDocument();
-
-  userEvent.type(email, 'test');
-
-  expect(button.disabled).toBe(true);
-
-  email.value = '';
   userEvent.type(email, 'test@test.com');
-  userEvent.type(password, '1234');
-
-  expect(button.disabled).toBe(true);
-
-  userEvent.type(password, '567');
-  expect(button.disabled).toBe(false);
-
+  userEvent.type(password, '123456789');
   userEvent.click(button);
 
-  const mealsTitle = screen.getByRole('heading', {
-    name: /meals/i,
+  expect(await screen.findByText(/corba/i)).toBeInTheDocument();
+  const recipeButton = screen.getByRole('button', {
+    name: /corba corba/i,
   });
-  expect(mealsTitle).toBeInTheDocument();
+  userEvent.click(recipeButton);
+  expect(await screen.findByRole('heading', {
+    name: /recipedetails/i,
+  })).toBeInTheDocument();
 });

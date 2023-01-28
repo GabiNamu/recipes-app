@@ -1,9 +1,11 @@
 import React, { useContext, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { getRecipes } from '../context/api/mealDB';
 import { Context } from '../context/provider/ApiProvider';
 
 function RecipeCard({ recipeObj }) {
   const { recipeList, setRecipeList } = useContext(Context);
+  const history = useHistory();
   useEffect(() => {
     if (Object.keys(recipeList).length !== 0
       && recipeList[recipeObj].length > Number('12')) {
@@ -28,28 +30,36 @@ function RecipeCard({ recipeObj }) {
     fetchRecipes();
   }, []);
   console.log(recipeList);
+  const handleClick = (id) => (history.push(`/${recipeObj}/${id}`));
   return (
     <div>
       <ul>
         {
           Object.keys(recipeList).length !== 0 && recipeList[recipeObj]
             .map((recipe, index) => (
-              <li
+              <button
+                style={ { width: '200px' } }
                 key={ recipeObj === 'meals' ? recipe.idMeal : recipe.idDrink }
-                data-testid={ `${index}-recipe-card` }
+                onClick={ () => handleClick(recipeObj === 'meals'
+                  ? recipe.idMeal : recipe.idDrink) }
               >
-                <p data-testid={ `${index}-card-name` }>
-                  {recipeObj === 'meals'
-                    ? recipe.strMeal : recipe.strDrink }
+                <li
+                  data-testid={ `${index}-recipe-card` }
+                >
+                  <p data-testid={ `${index}-card-name` }>
+                    {recipeObj === 'meals'
+                      ? recipe.strMeal : recipe.strDrink }
 
-                </p>
-                <img
-                  src={ recipeObj === 'meals'
-                    ? recipe.strMealThumb : recipe.strDrinkThumb }
-                  alt={ recipeObj === 'meals' ? recipe.strMeal : recipe.strDrink }
-                  data-testid={ `${index}-card-img` }
-                />
-              </li>
+                  </p>
+                  <img
+                    style={ { width: '150px' } }
+                    src={ recipeObj === 'meals'
+                      ? recipe.strMealThumb : recipe.strDrinkThumb }
+                    alt={ recipeObj === 'meals' ? recipe.strMeal : recipe.strDrink }
+                    data-testid={ `${index}-card-img` }
+                  />
+                </li>
+              </button>
             ))
         }
       </ul>
