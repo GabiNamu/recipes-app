@@ -3,9 +3,9 @@ import { Context } from '../context/provider/ApiProvider';
 
 function MealInProgress() {
   const { recipeList } = useContext(Context);
-  const [checkboxState, setCheckboxState] = useState({
-    ingredient: false,
-  });
+  const [checkboxState, setCheckboxState] = useState(
+    JSON.parse(localStorage.getItem('inProgressRecipes')) || {},
+  );
 
   const thisMeal = recipeList.meals[0];
 
@@ -15,10 +15,19 @@ function MealInProgress() {
 
   const handleCheckboxChange = ({ target }) => {
     const { value } = target;
-    setCheckboxState((prevState) => ({
-      ...prevState,
-      [value]: !prevState[value],
-    }));
+    setCheckboxState((prevState) => {
+      localStorage.setItem(
+        'inProgressRecipes',
+        JSON.stringify({
+          ...prevState,
+          [value]: !prevState[value],
+        }),
+      );
+      return {
+        ...prevState,
+        [value]: !prevState[value],
+      };
+    });
   };
 
   // useEffect(() => {

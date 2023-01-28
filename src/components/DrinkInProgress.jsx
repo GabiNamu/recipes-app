@@ -3,30 +3,32 @@ import { Context } from '../context/provider/ApiProvider';
 
 function DrinkInProgress() {
   const { recipeList } = useContext(Context);
-  const [checkboxState, setCheckboxState] = useState({
-    ingredient: false,
-  });
+  const [checkboxState, setCheckboxState] = useState(
+    JSON.parse(localStorage.getItem('inProgressRecipes')) || {},
+  );
 
+  console.log(checkboxState);
+  // get drink properties //
   const thisDrink = recipeList.drinks[0];
 
+  // get ingredients in an array of strings //
   const ingredients = Object.entries(thisDrink)
     .filter(([key]) => key.includes('strIngredient'))
     .map(([, value]) => value);
 
   const handleCheckboxChange = ({ target }) => {
     const { value } = target;
-    setCheckboxState((prevState) => ({
-      ...prevState,
-      [value]: !prevState[value],
-    }));
+    setCheckboxState((prevState) => {
+      localStorage.setItem('inProgressRecipes', JSON.stringify({
+        ...prevState,
+        [value]: !prevState[value],
+      }));
+      return {
+        ...prevState,
+        [value]: !prevState[value],
+      };
+    });
   };
-
-  // useEffect(() => {
-  //   fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${productId}`)
-  //     .then((response) => response.json())
-  //     .then((data) => setRecipeList(data))
-  //     .catch((error) => console.log(error));
-  // }, [productId, setRecipeList]);
 
   return (
     <div>
