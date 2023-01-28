@@ -78,3 +78,33 @@ export const mockFirstLetter = { meals: [
     idMeal: '52907',
   },
 ] };
+
+export const storageMock = (() => {
+  let store = {
+    user: {
+      email: 'test@test.com',
+    },
+  };
+
+  return {
+    getItem(key) {
+      return JSON.stringify(store[key]);
+    },
+
+    setItem(key, value) {
+      store[key] = value;
+    },
+
+    clear() {
+      store = {};
+    },
+
+    removeItem(key) {
+      delete store[key];
+    },
+
+    getAll() {
+      return store;
+    },
+  };
+})();
