@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import copy from 'clipboard-copy';
+import shareIcon from '../images/shareIcon.svg';
 
 function MealInProgress({ productId }) {
+  const history = useHistory();
+  const thisPath = history.location.pathname;
   const [mealDetails, setMealDetails] = useState({});
+  const [success, setSuccess] = useState(false);
   const [checkboxState, setCheckboxState] = useState(
     JSON.parse(localStorage.getItem('inProgressRecipes')) || {},
   );
-
-  console.log(productId);
 
   useEffect(() => {
     fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${productId}`)
@@ -37,6 +41,11 @@ function MealInProgress({ productId }) {
         [value]: !prevState[value],
       };
     });
+  };
+
+  const handleShare = () => {
+    copy(`http://localhost:3000${thisPath.replace('/in-progress', '')}`);
+    setSuccess(true);
   };
 
   return (
@@ -74,8 +83,11 @@ function MealInProgress({ productId }) {
           ))}
         </div>
         <button data-testid="finish-recipe-btn">Finish</button>
-        <button data-testid="share-btn">Share</button>
+        <button data-testid="share-btn" onClick={ handleShare }>
+          <img src={ shareIcon } alt="" />
+        </button>
         <button data-testid="favorite-btn">Favorite</button>
+        { success && <span>Link copied!</span> }
       </div>
     </div>
   );
