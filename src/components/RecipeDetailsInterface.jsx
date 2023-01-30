@@ -73,6 +73,12 @@ function RecipeDetailsInterface({ props: [loading, setLoading, path, id] }) {
           recipesRecomendations={ recipesRecomendations.drinks
             .slice(undefined, carouselRendering) }
         />
+        <button
+          data-testid="start-recipe-btn"
+          style={ { position: 'fixed', bottom: 0 } }
+        >
+          Start Recipe
+        </button>
       </div>
     );
   }
@@ -112,6 +118,12 @@ function RecipeDetailsInterface({ props: [loading, setLoading, path, id] }) {
         recipesRecomendations={ recipesRecomendations.meals
           .slice(undefined, carouselRendering) }
       />
+      <button
+        data-testid="start-recipe-btn"
+        style={ { position: 'fixed', bottom: 0 } }
+      >
+        Start Recipe
+      </button>
     </div>
   );
 }
