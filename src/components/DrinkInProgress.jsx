@@ -6,12 +6,12 @@ function DrinkInProgress() {
   const [checkboxState, setCheckboxState] = useState(
     JSON.parse(localStorage.getItem('inProgressRecipes')) || {},
   );
+  console.log(recipeList);
 
-  console.log(checkboxState);
-  // get drink properties //
+  // get drink //
   const thisDrink = recipeList.drinks[0];
 
-  // get ingredients in an array of strings //
+  // ingredients in an array of strings //
   const ingredients = Object.entries(thisDrink)
     .filter(([key]) => key.includes('strIngredient'))
     .map(([, value]) => value);
@@ -19,16 +19,26 @@ function DrinkInProgress() {
   const handleCheckboxChange = ({ target }) => {
     const { value } = target;
     setCheckboxState((prevState) => {
-      localStorage.setItem('inProgressRecipes', JSON.stringify({
-        ...prevState,
-        [value]: !prevState[value],
-      }));
+      localStorage.setItem(
+        'inProgressRecipes',
+        JSON.stringify({
+          ...prevState,
+          [value]: !prevState[value],
+        }),
+      );
       return {
         ...prevState,
         [value]: !prevState[value],
       };
     });
   };
+
+  // useEffect(() => {
+  //   fetch('link da api de drinks recebendo productId')
+  //     .then((response) => response.json())
+  //     .then((data) => setRecipeList(data))
+  //     .catch((error) => console.log(error));
+  // });
 
   return (
     <div>

@@ -30,13 +30,6 @@ function MealInProgress() {
     });
   };
 
-  // useEffect(() => {
-  //   fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${productId}`)
-  //     .then((response) => response.json())
-  //     .then((data) => setRecipeList(data))
-  //     .catch((error) => console.log(error));
-  // }, [productId, setRecipeList]);
-
   return (
     <div>
       <div>
