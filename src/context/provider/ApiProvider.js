@@ -5,7 +5,10 @@ export const Context = createContext();
 function ApiProvider({ children }) {
   const [recipeList, setRecipeList] = useState([]);
 
-  const value = useMemo(() => ({ recipeList, setRecipeList }), [recipeList]);
+  const value = useMemo(
+    () => ({ recipeList, setRecipeList }),
+    [recipeList],
+  );
 
   return <Context.Provider value={ value }>{children}</Context.Provider>;
 }

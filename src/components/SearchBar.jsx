@@ -33,7 +33,6 @@ function SearchBar() {
       search.inputText,
       search.radio,
     );
-    console.log(resultDrinks);
     setRecipeList(resultDrinks);
     if (resultDrinks && resultDrinks.drinks.length === 1) {
       history.push(`/drinks/${resultDrinks.drinks[0].idDrink}`);
