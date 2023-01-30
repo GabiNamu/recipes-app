@@ -6,7 +6,7 @@ import { Context } from '../context/provider/ApiProvider';
 
 function SearchBar() {
   const [search, setSearch] = useState({ radio: '', inputText: '' });
-  const { setRecipeList, recipeList } = useContext(Context);
+  const { setRecipeList } = useContext(Context);
   const history = useHistory();
   const handleChange = (e) => {
     setSearch({
@@ -14,7 +14,6 @@ function SearchBar() {
       [e.target.name]: e.target.value,
     });
   };
-  console.log(recipeList);
 
   const handleClick = async () => {
     if (history.location.pathname === '/meals') {

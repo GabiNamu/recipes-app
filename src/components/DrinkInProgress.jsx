@@ -1,20 +1,23 @@
-import React, { useContext, useState } from 'react';
-import { Context } from '../context/provider/ApiProvider';
+import React, { useEffect, useState } from 'react';
 
-function DrinkInProgress() {
-  const { recipeList } = useContext(Context);
+function DrinkInProgress({ productId }) {
+  const [cocktail, setCocktail] = useState({});
   const [checkboxState, setCheckboxState] = useState(
     JSON.parse(localStorage.getItem('inProgressRecipes')) || {},
   );
-  console.log(recipeList);
 
-  // get drink //
-  const thisDrink = recipeList.drinks[0];
+  useEffect(() => {
+    fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${productId}`)
+      .then((response) => response.json())
+      .then((data) => setCocktail(data.drinks[0]))
+      .catch((error) => console.error(error));
+  }, [productId]);
 
-  // ingredients in an array of strings //
-  const ingredients = Object.entries(thisDrink)
-    .filter(([key]) => key.includes('strIngredient'))
-    .map(([, value]) => value);
+  const ingredients = cocktail
+    ? Object.entries(cocktail)
+      .filter(([key]) => key.includes('strIngredient'))
+      .map(([, value]) => value)
+    : [];
 
   const handleCheckboxChange = ({ target }) => {
     const { value } = target;
@@ -33,21 +36,14 @@ function DrinkInProgress() {
     });
   };
 
-  // useEffect(() => {
-  //   fetch('link da api de drinks recebendo productId')
-  //     .then((response) => response.json())
-  //     .then((data) => setRecipeList(data))
-  //     .catch((error) => console.log(error));
-  // });
-
   return (
     <div>
       <div>
-        <img data-testid="recipe-photo" src={ thisDrink.strDrinkThumb } alt="" />
-        <h3 data-testid="recipe-title">{thisDrink.strDrink}</h3>
-        <h5 data-testid="recipe-category">{thisDrink.strAlcoholic}</h5>
+        <img data-testid="recipe-photo" src={ cocktail.strDrinkThumb } alt="" />
+        <h3 data-testid="recipe-title">{cocktail.strDrink}</h3>
+        <h5 data-testid="recipe-category">{cocktail.strAlcoholic}</h5>
         <h5>How to prepare your drink</h5>
-        <p data-testid="instructions">{thisDrink.strInstructions}</p>
+        <p data-testid="instructions">{cocktail.strInstructions}</p>
         <h5>Ingredients</h5>
         <div>
           {ingredients.map((ingredient, i) => (
