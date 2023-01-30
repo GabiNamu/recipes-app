@@ -7,17 +7,18 @@ function DrinkInProgress({ productId }) {
   );
 
   useEffect(() => {
-    fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${productId}`)
+    fetch(
+      `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${productId}`,
+    )
       .then((response) => response.json())
       .then((data) => setCocktail(data.drinks[0]))
       .catch((error) => console.error(error));
   }, [productId]);
 
-  const ingredients = cocktail
-    ? Object.entries(cocktail)
-      .filter(([key]) => key.includes('strIngredient'))
-      .map(([, value]) => value)
-    : [];
+  const ingredients = Object.entries(cocktail)
+    .filter(([key]) => key.includes('strIngredient'))
+    .map(([, value]) => value)
+    .filter((value) => value !== '' && value !== null);
 
   const handleCheckboxChange = ({ target }) => {
     const { value } = target;
@@ -48,20 +49,19 @@ function DrinkInProgress({ productId }) {
         <div>
           {ingredients.map((ingredient, i) => (
             <div key={ i }>
-              <span
+              <label
+                htmlFor={ ingredient }
+                data-testid={ `${i}-ingredient-step` }
                 style={ {
-                  textDecoration: checkboxState[ingredient]
-                    ? 'line-through solid rgb(0, 0, 0)'
-                    : 'none',
+                  textDecoration: checkboxState[ingredient] ? (
+                    'line-through solid rgb(0, 0, 0)'
+                  ) : (
+                    'none'
+                  ),
                 } }
               >
                 {ingredient}
-              </span>
-              {ingredient === null ? (
-                ''
-              ) : (
                 <input
-                  data-testid={ `${i}-ingredient-step` }
                   type="checkbox"
                   name={ ingredient }
                   id={ i }
@@ -69,7 +69,7 @@ function DrinkInProgress({ productId }) {
                   checked={ checkboxState[ingredient] }
                   onChange={ handleCheckboxChange }
                 />
-              )}
+              </label>
             </div>
           ))}
         </div>

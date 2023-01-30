@@ -1,17 +1,26 @@
-import React, { useContext, useState } from 'react';
-import { Context } from '../context/provider/ApiProvider';
+import React, { useEffect, useState } from 'react';
 
-function MealInProgress() {
-  const { recipeList } = useContext(Context);
+function MealInProgress({ productId }) {
+  const [mealDetails, setMealDetails] = useState({});
   const [checkboxState, setCheckboxState] = useState(
     JSON.parse(localStorage.getItem('inProgressRecipes')) || {},
   );
 
-  const thisMeal = recipeList.meals[0];
+  console.log(productId);
 
-  const ingredients = Object.entries(thisMeal)
+  useEffect(() => {
+    fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${productId}`)
+      .then((response) => response.json())
+      .then((data) => setMealDetails(data.meals[0]))
+      .catch((error) => console.error(error));
+  }, [productId]);
+
+  const ingredients = Object.entries(mealDetails)
     .filter(([key]) => key.includes('strIngredient'))
-    .map(([, value]) => value);
+    .map(([, value]) => value)
+    .filter((value) => value !== '' && value !== null);
+
+  console.log(ingredients);
 
   const handleCheckboxChange = ({ target }) => {
     const { value } = target;
@@ -33,16 +42,18 @@ function MealInProgress() {
   return (
     <div>
       <div>
-        <img data-testid="recipe-photo" src={ thisMeal.strMealThumb } alt="" />
-        <h3 data-testid="recipe-title">{thisMeal.strMeal}</h3>
-        <h5 data-testid="recipe-category">{thisMeal.strCategory}</h5>
+        <img data-testid="recipe-photo" src={ mealDetails.strMealThumb } alt="" />
+        <h3 data-testid="recipe-title">{mealDetails.strMeal}</h3>
+        <h5 data-testid="recipe-category">{mealDetails.strCategory}</h5>
         <h5>How to prepare your meal</h5>
-        <p data-testid="instructions">{thisMeal.strInstructions}</p>
+        <p data-testid="instructions">{mealDetails.strInstructions}</p>
         <h5>Ingredients</h5>
         <div>
           {ingredients.map((ingredient, i) => (
             <div key={ i }>
-              <span
+              <label
+                htmlFor={ ingredient }
+                data-testid={ `${i}-ingredient-step` }
                 style={ {
                   textDecoration: checkboxState[ingredient]
                     ? 'line-through solid rgb(0, 0, 0)'
@@ -50,12 +61,7 @@ function MealInProgress() {
                 } }
               >
                 {ingredient}
-              </span>
-              {ingredient === '' ? (
-                ''
-              ) : (
                 <input
-                  data-testid={ `${i}-ingredient-step` }
                   type="checkbox"
                   name={ ingredient }
                   id={ i }
@@ -63,7 +69,7 @@ function MealInProgress() {
                   checked={ checkboxState[ingredient] }
                   onChange={ handleCheckboxChange }
                 />
-              )}
+              </label>
             </div>
           ))}
         </div>

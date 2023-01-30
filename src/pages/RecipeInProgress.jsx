@@ -11,12 +11,16 @@ function RecipeInProgress() {
     <>
       <h1>RecipeInProgress</h1>
       <div>
-        { thisPath.includes('meals') ? (
+        {thisPath.includes('meals') ? (
           // render meal in progress in case of route containing meals //
-          <MealInProgress productId={ productId } />
+          <MealInProgress
+            productId={ productId }
+          />
         ) : (
           // render drink in progress in case of route containing meals //
-          <DrinkInProgress productId={ productId } />
+          <DrinkInProgress
+            productId={ productId }
+          />
         )}
       </div>
     </>
