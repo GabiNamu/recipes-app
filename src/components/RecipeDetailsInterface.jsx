@@ -1,14 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import RecomendationsCards from './RecomendationsCards';
 
 function RecipeDetailsInterface({ props: [loading, setLoading, path, id] }) {
   const [recipesRequestApi, setRecipesRequestApi] = useState(null);
+  const [recipesRecomendations, setRecipesRecomendations] = useState(null);
   const mealSubStrIndexStart = 32;
+  const carouselRendering = 6;
 
   useEffect(() => {
     fetch(path.includes('meals') ? `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}` : `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`)
       .then((response) => response.json())
       .then((data) => setRecipesRequestApi(data))
+      .catch((error) => console.log(error));
+
+    fetch(path.includes('meals') ? 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=' : 'https://www.themealdb.com/api/json/v1/1/search.php?s=')
+      .then((response) => response.json())
+      .then((data) => setRecipesRecomendations(data))
       .catch((error) => console.log(error))
       .finally(() => setLoading(false));
   }, []);
@@ -61,6 +69,10 @@ function RecipeDetailsInterface({ props: [loading, setLoading, path, id] }) {
           allowFullScreen
           data-testid="video"
         />
+        <RecomendationsCards
+          recipesRecomendations={ recipesRecomendations.drinks
+            .slice(undefined, carouselRendering) }
+        />
       </div>
     );
   }
@@ -96,6 +108,10 @@ function RecipeDetailsInterface({ props: [loading, setLoading, path, id] }) {
       <p data-testid="instructions">
         { recipesRequestApi.drinks[0].strInstructions}
       </p>
+      <RecomendationsCards
+        recipesRecomendations={ recipesRecomendations.meals
+          .slice(undefined, carouselRendering) }
+      />
     </div>
   );
 }
