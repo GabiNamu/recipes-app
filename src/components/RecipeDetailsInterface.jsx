@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import RecomendationsCards from './RecomendationsCards';
+import StartRecipeButton from './StartRecipeButton';
 
 function RecipeDetailsInterface({ props: [loading, setLoading, path, id] }) {
   const [recipesRequestApi, setRecipesRequestApi] = useState(null);
@@ -73,12 +74,7 @@ function RecipeDetailsInterface({ props: [loading, setLoading, path, id] }) {
           recipesRecomendations={ recipesRecomendations.drinks
             .slice(undefined, carouselRendering) }
         />
-        <button
-          data-testid="start-recipe-btn"
-          style={ { position: 'fixed', bottom: 0 } }
-        >
-          Start Recipe
-        </button>
+        <StartRecipeButton recipesRequestApi={ recipesRequestApi } />
       </div>
     );
   }
@@ -118,12 +114,7 @@ function RecipeDetailsInterface({ props: [loading, setLoading, path, id] }) {
         recipesRecomendations={ recipesRecomendations.meals
           .slice(undefined, carouselRendering) }
       />
-      <button
-        data-testid="start-recipe-btn"
-        style={ { position: 'fixed', bottom: 0 } }
-      >
-        Start Recipe
-      </button>
+      <StartRecipeButton recipesRequestApi={ recipesRequestApi } />
     </div>
   );
 }
