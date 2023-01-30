@@ -41,7 +41,6 @@ test('Profile', async () => {
   const doneRecipes = screen.getByTestId('profile-done-btn');
   const favoriteRecipes = screen.getByTestId('profile-favorite-btn');
   const logout = screen.getByTestId('profile-logout-btn');
-
   expect(userEmail).toBeInTheDocument();
   expect(doneRecipes).toBeInTheDocument();
   expect(favoriteRecipes).toBeInTheDocument();
