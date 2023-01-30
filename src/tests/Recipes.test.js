@@ -230,7 +230,6 @@ test('', async () => {
   const button = await screen.findAllByRole('button');
 
   userEvent.click(button[4]);
-
   expect(await screen.findByText(/151 Florida Bushwacker/i)).toBeInTheDocument();
   expect(await screen.findByText(/Avalanche/i)).toBeInTheDocument();
   expect(await screen.findByText(/Baby Eskimo/i)).toBeInTheDocument();
