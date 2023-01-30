@@ -12,7 +12,7 @@ function Recipes() {
   const [categorys, setCategorys] = useState({});
   const heading = history.location.pathname === '/meals' ? 'Meals' : 'Drinks';
   const recipeObj = heading.toLowerCase();
-
+  console.log(categorys);
   useEffect(() => {
     const fetchCategorys = async () => {
       if (recipeObj === 'meals') {

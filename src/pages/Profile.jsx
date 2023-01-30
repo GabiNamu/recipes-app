@@ -13,7 +13,7 @@ function Profile() {
   return (
     <div>
       <Header title="Profile" search={ false } />
-      <p data-testid="profile-email">{email.email}</p>
+      <p data-testid="profile-email">{email && email.email}</p>
       <Link to="/done-recipes" data-testid="profile-done-btn">Done Recipes</Link>
       <Link
         to="/favorite-recipes"

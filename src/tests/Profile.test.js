@@ -1,4 +1,5 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
@@ -23,19 +24,7 @@ test('Profile', async () => {
 
   Object.defineProperty(window, 'localStorage', { value: storageMock });
 
-  const email = screen.getByTestId('email-input');
-  const password = screen.getByTestId('password-input');
-  const button = screen.getByTestId('login-submit-btn');
-
-  userEvent.type(email, 'test@test.com');
-  userEvent.type(password, '123456789');
-  userEvent.click(button);
-
-  const profileIcon = screen.getByRole('img', {
-    name: /ícone de perfil/i,
-  });
-
-  userEvent.click(profileIcon);
+  Redirect('/profile');
 
   const userEmail = screen.getByTestId('profile-email');
   const doneRecipes = screen.getByTestId('profile-done-btn');

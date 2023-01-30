@@ -8,7 +8,7 @@ function RecipeCard({ recipeObj }) {
   const history = useHistory();
   useEffect(() => {
     if (Object.keys(recipeList).length !== 0
-      && recipeList[recipeObj].length > Number('12')) {
+      && recipeList[recipeObj] && recipeList[recipeObj].length > Number('12')) {
       const newRecipes = recipeList[recipeObj].slice(0, Number('12'));
       console.log(newRecipes);
       setRecipeList({ [recipeObj]: newRecipes });
@@ -35,32 +35,33 @@ function RecipeCard({ recipeObj }) {
     <div>
       <ul>
         {
-          Object.keys(recipeList).length !== 0 && recipeList[recipeObj]
-            .map((recipe, index) => (
-              <button
-                style={ { width: '200px' } }
-                key={ recipeObj === 'meals' ? recipe.idMeal : recipe.idDrink }
-                onClick={ () => handleClick(recipeObj === 'meals'
-                  ? recipe.idMeal : recipe.idDrink) }
-              >
-                <li
-                  data-testid={ `${index}-recipe-card` }
+          Object.keys(recipeList).length !== 0
+          && recipeList[recipeObj] ? recipeList[recipeObj]
+              .map((recipe, index) => (
+                <button
+                  style={ { width: '200px' } }
+                  key={ recipeObj === 'meals' ? recipe.idMeal : recipe.idDrink }
+                  onClick={ () => handleClick(recipeObj === 'meals'
+                    ? recipe.idMeal : recipe.idDrink) }
                 >
-                  <p data-testid={ `${index}-card-name` }>
-                    {recipeObj === 'meals'
-                      ? recipe.strMeal : recipe.strDrink }
+                  <li
+                    data-testid={ `${index}-recipe-card` }
+                  >
+                    <p data-testid={ `${index}-card-name` }>
+                      {recipeObj === 'meals'
+                        ? recipe.strMeal : recipe.strDrink }
 
-                  </p>
-                  <img
-                    style={ { width: '150px' } }
-                    src={ recipeObj === 'meals'
-                      ? recipe.strMealThumb : recipe.strDrinkThumb }
-                    alt={ recipeObj === 'meals' ? recipe.strMeal : recipe.strDrink }
-                    data-testid={ `${index}-card-img` }
-                  />
-                </li>
-              </button>
-            ))
+                    </p>
+                    <img
+                      style={ { width: '150px' } }
+                      src={ recipeObj === 'meals'
+                        ? recipe.strMealThumb : recipe.strDrinkThumb }
+                      alt={ recipeObj === 'meals' ? recipe.strMeal : recipe.strDrink }
+                      data-testid={ `${index}-card-img` }
+                    />
+                  </li>
+                </button>
+              )) : ''
         }
       </ul>
     </div>

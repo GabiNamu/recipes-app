@@ -1,37 +1,26 @@
 import React from 'react';
+import { act } from 'react-dom/test-utils';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { act } from 'react-dom/test-utils';
 import renderWithRouter from './helpers/renderWithRouter';
 import ApiProvider from '../context/provider/ApiProvider';
 import App from '../App';
-import { mockIngredients, mockFirstLetter } from './helpers/mockData';
+import { mockIngredients, mockFirstLetter, mockDrinkIngredients, mockDrinkFirstLetter } from './helpers/mockData';
 
-const data = ['email-input', 'password-input', 'login-submit-btn', 'test@test.com'];
-
-test('', async () => {
+test('SearchBar - meals - ingredients', async () => {
   jest.spyOn(global, 'fetch');
   global.fetch.mockResolvedValue({
     json: jest.fn().mockResolvedValue(mockIngredients),
   });
 
-  await act(async () => {
-    renderWithRouter(
-      <ApiProvider>
-        <App />
-      </ApiProvider>,
-    );
-  });
+  const { history } = renderWithRouter(
+    <ApiProvider>
+      <App />
+    </ApiProvider>,
+  );
+  history.push('meals');
 
-  const email = screen.getByTestId(data[0]);
-  const password = screen.getByTestId(data[1]);
-  const button = screen.getByTestId(data[2]);
-
-  userEvent.type(email, data[3]);
-  userEvent.type(password, '123456789');
-  userEvent.click(button);
-
-  const searchIcon = screen.queryByRole('img', {
+  const searchIcon = await screen.findByRole('img', {
     name: /ícone de pesquisa/i,
   });
   userEvent.click(searchIcon);
@@ -63,7 +52,7 @@ test('', async () => {
   expect(await screen.findByText(/tuna and egg briks/i)).toBeInTheDocument();
 });
 
-test('', async () => {
+test('SearchBar - meals - name', async () => {
   jest.spyOn(global, 'fetch');
   global.fetch.mockResolvedValue({
     json: jest.fn().mockResolvedValue({ meals: [
@@ -74,25 +63,17 @@ test('', async () => {
       }] }),
   });
 
-  await act(async () => {
-    renderWithRouter(
-      <ApiProvider>
-        <App />
-      </ApiProvider>,
-    );
-  });
+  const { history } = renderWithRouter(
+    <ApiProvider>
+      <App />
+    </ApiProvider>,
+  );
+  history.push('/meals');
 
-  const email = screen.getByTestId(data[0]);
-  const password = screen.getByTestId(data[1]);
-  const button = screen.getByTestId(data[2]);
-
-  userEvent.type(email, data[3]);
-  userEvent.type(password, '123456789');
-  userEvent.click(button);
-
-  const searchIcon = screen.queryByRole('img', {
+  const searchIcon = await screen.findByRole('img', {
     name: /ícone de pesquisa/i,
   });
+  expect(searchIcon).toBeInTheDocument();
   userEvent.click(searchIcon);
 
   const input = screen.getByRole('textbox');
@@ -111,29 +92,20 @@ test('', async () => {
   })).toBeInTheDocument();
 });
 
-test('', async () => {
+test('SearchBar - meals - first letter', async () => {
   jest.spyOn(global, 'fetch');
   global.fetch.mockResolvedValue({
     json: jest.fn().mockResolvedValue(mockFirstLetter),
   });
 
-  await act(async () => {
-    renderWithRouter(
-      <ApiProvider>
-        <App />
-      </ApiProvider>,
-    );
-  });
+  const { history } = renderWithRouter(
+    <ApiProvider>
+      <App />
+    </ApiProvider>,
+  );
+  history.push('/meals');
 
-  const email = screen.getByTestId(data[0]);
-  const password = screen.getByTestId(data[1]);
-  const button = screen.getByTestId(data[2]);
-
-  userEvent.type(email, data[3]);
-  userEvent.type(password, '123456789');
-  userEvent.click(button);
-
-  const searchIcon = screen.queryByRole('img', {
+  const searchIcon = await screen.findByRole('img', {
     name: /ícone de pesquisa/i,
   });
   userEvent.click(searchIcon);
@@ -158,4 +130,152 @@ test('', async () => {
   expect(screen.getByRole('button', {
     name: /duck confit duck confit/i,
   })).toBeInTheDocument();
+});
+
+test('SearchBar - drinks - ingredients', async () => {
+  jest.spyOn(global, 'fetch');
+  global.fetch.mockResolvedValue({
+    json: jest.fn().mockResolvedValue(mockDrinkIngredients),
+  });
+
+  const { history } = renderWithRouter(
+    <ApiProvider>
+      <App />
+    </ApiProvider>,
+  );
+  history.push('drinks');
+
+  const searchIcon = await screen.findByRole('img', {
+    name: /ícone de pesquisa/i,
+  });
+  userEvent.click(searchIcon);
+
+  const input = screen.getByRole('textbox');
+  const ingredients = screen.getByRole('radio', {
+    name: /ingredient/i,
+  });
+  const buttonSearch = screen.getByRole('button', {
+    name: /search/i,
+  });
+
+  expect(input).toBeInTheDocument();
+  expect(ingredients).toBeInTheDocument();
+  expect(buttonSearch).toBeInTheDocument();
+
+  userEvent.type(input, 'Absolut Vodka');
+  userEvent.click(ingredients);
+  userEvent.click(buttonSearch);
+  expect(await screen.findByText(/Absolut Stress #2/i)).toBeInTheDocument();
+  expect(await screen.findByText(/Absolutely Cranberry Smash/i)).toBeInTheDocument();
+  expect(await screen.findByText(/Arizona Stingers/i)).toBeInTheDocument();
+  expect(await screen.findByText(/AT&T/i)).toBeInTheDocument();
+});
+
+test('SearchBar - drinks - name', async () => {
+  jest.spyOn(global, 'fetch');
+  global.fetch.mockResolvedValue({
+    json: jest.fn().mockResolvedValue({ drinks: [
+      {
+        strDrink: 'Arizona Stingers',
+        strDrinkThumb: 'https://www.thecocktaildb.com/images/media/drink/y7w0721493068255.jpg',
+        idDrink: '14584',
+      }] }),
+  });
+
+  const { history } = renderWithRouter(
+    <ApiProvider>
+      <App />
+    </ApiProvider>,
+  );
+  history.push('/drinks');
+
+  const searchIcon = await screen.findByRole('img', {
+    name: /ícone de pesquisa/i,
+  });
+  expect(searchIcon).toBeInTheDocument();
+  userEvent.click(searchIcon);
+
+  const input = screen.getByRole('textbox');
+  const name = screen.getByRole('radio', {
+    name: /name/i,
+  });
+  const buttonSearch = screen.getByRole('button', {
+    name: /search/i,
+  });
+  userEvent.type(input, 'Arizona Stingers');
+  userEvent.click(name);
+  userEvent.click(buttonSearch);
+
+  expect(await screen.findByRole('heading', {
+    name: /recipedetails/i,
+  })).toBeInTheDocument();
+});
+
+test('SearchBar - drinks - first letter', async () => {
+  jest.spyOn(global, 'fetch');
+  global.fetch.mockResolvedValue({
+    json: jest.fn().mockResolvedValue(mockDrinkFirstLetter),
+  });
+
+  const { history } = renderWithRouter(
+    <ApiProvider>
+      <App />
+    </ApiProvider>,
+  );
+  history.push('/drinks');
+
+  const searchIcon = await screen.findByRole('img', {
+    name: /ícone de pesquisa/i,
+  });
+  userEvent.click(searchIcon);
+
+  const input = screen.getByRole('textbox');
+  const firstLetter = screen.getByRole('radio', {
+    name: /first letter/i,
+  });
+  const buttonSearch = screen.getByRole('button', {
+    name: /search/i,
+  });
+
+  userEvent.type(input, 'y');
+  userEvent.click(firstLetter);
+  userEvent.click(buttonSearch);
+  expect(await screen.findByText(/Yellow Bird/i)).toBeInTheDocument();
+  expect(await screen.findByText(/Yoghurt Cooler/i)).toBeInTheDocument();
+});
+
+test('', async () => {
+  global.alert = jest.fn();
+  jest.spyOn(global, 'fetch');
+  global.fetch.mockResolvedValue({
+    json: jest.fn().mockResolvedValue({ drinks: null }),
+  });
+
+  const { history } = renderWithRouter(
+    <ApiProvider>
+      <App />
+    </ApiProvider>,
+  );
+
+  await act(async () => {
+    history.push('/drinks');
+  });
+
+  const searchIcon = await screen.findByRole('img', {
+    name: /ícone de pesquisa/i,
+  });
+  userEvent.click(searchIcon);
+
+  const input = screen.getByRole('textbox');
+  const firstLetter = screen.getByRole('radio', {
+    name: /first letter/i,
+  });
+  const buttonSearch = screen.getByRole('button', {
+    name: /search/i,
+  });
+
+  userEvent.type(input, 'x');
+  userEvent.click(firstLetter);
+  userEvent.click(buttonSearch);
+  expect(global.alert).toHaveBeenCalledTimes(1);
 });
