@@ -9,7 +9,7 @@ function DoneRecipes() {
   useEffect(() => {
     const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
     if (doneRecipes) setRecipes(doneRecipes);
-  }, []);
+  }, [setRecipes]);
 
   const handleClick = (type) => {
     const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));

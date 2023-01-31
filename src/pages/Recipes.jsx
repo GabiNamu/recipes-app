@@ -27,7 +27,7 @@ function Recipes() {
       setCategorys({ drinks: cat });
     };
     fetchCategorys();
-  }, []);
+  }, [recipeObj]);
 
   const handleClickCategory = async (e) => {
     if (recipeObj === 'meals') {
