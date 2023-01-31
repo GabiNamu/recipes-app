@@ -1,17 +1,19 @@
-import React from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import RecipeDetailsInterface from '../components/RecipeDetailsInterface';
 
-function RecipeDetails() {
-  const history = useHistory();
-  const handleClick = () => {
-    history.push(`${history.location.pathname}/in-progress`);
-  };
+function RecipeDetails({ match: { path, params: { id } } }) {
+  const [loading, setLoading] = useState(true);
 
   return (
     <div>
-      <button onClick={ handleClick }>send url</button>
+      <RecipeDetailsInterface props={ [loading, setLoading, path, id] } />
     </div>
   );
 }
+
+RecipeDetails.propTypes = {
+  match: PropTypes.shape(PropTypes.any.isRequired).isRequired,
+};
 
 export default RecipeDetails;

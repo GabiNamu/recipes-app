@@ -57,3 +57,52 @@
     transform: rotate(-10deg);
   }
 }
+
+.container {
+  display: block;
+  overflow: hidden;
+  width: 100%;
+}
+
+.carousel {
+  background: white;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+  border-top: 2px solid rgba(0, 0, 0, 0.1);
+  display: block;
+  height: 180px;
+  margin: 0;
+  overflow-x: scroll;
+  padding: 10px;
+  white-space: nowrap;
+  width: 100%;
+}
+
+.item {
+  background: rgba(0, 0, 0, 0.05) no-repeat center center;
+  background-size: cover;
+  border-radius: 20px;
+  box-shadow: 0 0 10px #dfdfdf;
+  display: inline-block;
+  height: 180px;
+  margin: 0 10px;
+  position: relative;
+  width: 160px;
+}
+
+.item div {
+  color: black;
+  font-size: 9em;
+  position: absolute;
+  text-align: center;
+  top: 10%;
+  width: 100%;
+}
+
+.item h1 {
+  color: black;
+  font-size: 1.5em;
+  position: absolute;
+  text-align: center;
+  top: 70%;
+  width: 100%;
+}
