@@ -21,9 +21,12 @@ function SearchBar() {
         search.inputText,
         search.radio,
       );
-      // console.log('resMeal', resultMeals);
-      // console.log('lngth', recipeList.meals.length);
+      console.log(resultMeals);
       setRecipeList(resultMeals);
+      if (resultMeals.meals === null) {
+        setRecipeList({});
+        return global.alert('Sorry, we haven\'t found any recipes for these filters.');
+      }
       if (resultMeals && resultMeals.meals.length === 1) {
         history.push(`/meals/${resultMeals.meals[0].idMeal}`);
       }
@@ -33,8 +36,11 @@ function SearchBar() {
       search.inputText,
       search.radio,
     );
-    console.log(resultDrinks);
     setRecipeList(resultDrinks);
+    if (resultDrinks.drinks === null) {
+      setRecipeList({});
+      return global.alert('Sorry, we haven\'t found any recipes for these filters.');
+    }
     if (resultDrinks && resultDrinks.drinks.length === 1) {
       history.push(`/drinks/${resultDrinks.drinks[0].idDrink}`);
     }

@@ -1,16 +1,38 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { act } from 'react-dom/test-utils';
 import renderWithRouter from './helpers/renderWithRouter';
-import Recipes from '../pages/Recipes';
+import ApiProvider from '../context/provider/ApiProvider';
+import App from '../App';
+import { mock } from './helpers/mockData';
 
-test('Header', () => {
-  const { history } = renderWithRouter(<Recipes />);
+test('Header', async () => {
+  jest.spyOn(global, 'fetch');
+  global.fetch.mockResolvedValue({
+    json: jest.fn().mockResolvedValue(mock),
+  });
+
+  await act(async () => {
+    renderWithRouter(
+      <ApiProvider>
+        <App />
+      </ApiProvider>,
+    );
+  });
+
+  const email = screen.getByTestId('email-input');
+  const password = screen.getByTestId('password-input');
+  const button = screen.getByTestId('login-submit-btn');
+
+  userEvent.type(email, 'test@test.com');
+  userEvent.type(password, '123456789');
+  userEvent.click(button);
 
   const profileIcon = screen.getByRole('img', {
     name: /ícone de perfil/i,
   });
-  const searchIcon = screen.getByRole('img', {
+  const searchIcon = screen.queryByRole('img', {
     name: /ícone de pesquisa/i,
   });
   const title = screen.getByRole('heading', {
@@ -31,5 +53,5 @@ test('Header', () => {
   expect(input).not.toBeInTheDocument();
 
   userEvent.click(profileIcon);
-  expect(history.location.pathname).toBe('/profile');
+  expect(searchIcon).not.toBeInTheDocument();
 });
