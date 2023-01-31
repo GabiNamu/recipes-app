@@ -1,5 +1,4 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
@@ -14,27 +13,39 @@ test('Profile', async () => {
     json: jest.fn().mockResolvedValue(mock),
   });
 
-  await act(async () => {
-    renderWithRouter(
-      <ApiProvider>
-        <App />
-      </ApiProvider>,
-    );
-  });
+  const { history } = renderWithRouter(
+    <ApiProvider>
+      <App />
+    </ApiProvider>,
+  );
 
   Object.defineProperty(window, 'localStorage', { value: storageMock });
-
-  Redirect('/profile');
+  await act(async () => {
+    history.push('/profile');
+  });
 
   const userEmail = screen.getByTestId('profile-email');
   const doneRecipes = screen.getByTestId('profile-done-btn');
-  const favoriteRecipes = screen.getByTestId('profile-favorite-btn');
-  const logout = screen.getByTestId('profile-logout-btn');
+
   expect(userEmail).toBeInTheDocument();
   expect(doneRecipes).toBeInTheDocument();
-  expect(favoriteRecipes).toBeInTheDocument();
-  expect(logout).toBeInTheDocument();
 
   userEvent.click(doneRecipes);
-  expect(screen.getByText(/Done Recipes/i)).toBeInTheDocument();
+  expect(history.location.pathname).toBe('/done-recipes');
+
+  await act(async () => {
+    history.push('/profile');
+  });
+  const favoriteRecipes = screen.getByTestId('profile-favorite-btn');
+  expect(favoriteRecipes).toBeInTheDocument();
+  userEvent.click(favoriteRecipes);
+  expect(history.location.pathname).toBe('/favorite-recipes');
+
+  await act(async () => {
+    history.push('/profile');
+  });
+  const logout = screen.getByTestId('profile-logout-btn');
+  expect(logout).toBeInTheDocument();
+  userEvent.click(logout);
+  expect(history.location.pathname).toBe('/');
 });

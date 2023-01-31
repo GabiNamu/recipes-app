@@ -82,7 +82,12 @@ function MealInProgress({ productId }) {
             </div>
           ))}
         </div>
-        <button data-testid="finish-recipe-btn">Finish</button>
+        <button
+          data-testid="finish-recipe-btn"
+        >
+          Finish
+
+        </button>
         <button data-testid="share-btn" onClick={ handleShare }>
           <img src={ shareIcon } alt="" />
         </button>

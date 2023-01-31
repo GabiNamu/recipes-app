@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Context } from '../context/provider/ApiProvider';
 import shareIcon from '../images/shareIcon.svg';
@@ -6,6 +6,13 @@ import shareIcon from '../images/shareIcon.svg';
 function DoneRecipeCard() {
   const history = useHistory();
   const { Recipes } = useContext(Context);
+  const [show, setShow] = useState(false);
+
+  const handleShare = () => {
+    copy(`http://localhost:3000${history.location.pathname}`);
+    setShow(true);
+  };
+
   return (
     <div>
       {Recipes.length !== 0 && Recipes.map((recipe, index) => (
@@ -30,9 +37,11 @@ function DoneRecipeCard() {
           <button
             type="button"
             data-testid={ `${index}-horizontal-share-btn` }
+            onClick={ handleShare }
           >
             { shareIcon }
           </button>
+          {show && <p>Link copied!</p> }
           { recipe.type === 'meal' && (
             <div>
               <p

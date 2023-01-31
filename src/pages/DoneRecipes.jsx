@@ -7,8 +7,11 @@ function DoneRecipes() {
   const { setRecipes } = useContext(Context);
 
   useEffect(() => {
-    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
-    if (doneRecipes) setRecipes(doneRecipes);
+    const doneRecipes = localStorage.getItem('doneRecipes');
+    if (doneRecipes) {
+      const jsonRecipes = JSON.parse(doneRecipes);
+      setRecipes(jsonRecipes);
+    }
   }, [setRecipes]);
 
   const handleClick = (type) => {
