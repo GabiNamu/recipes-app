@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 import RecipeCard from '../components/RecipeCard';
 import { getRecipes } from '../context/api/mealDB';
 import { Context } from '../context/provider/ApiProvider';
@@ -26,7 +27,7 @@ function Recipes() {
       setCategorys({ drinks: cat });
     };
     fetchCategorys();
-  }, []);
+  }, [recipeObj]);
 
   const handleClickCategory = async (e) => {
     if (recipeObj === 'meals') {
@@ -70,6 +71,7 @@ function Recipes() {
   return (
     <div>
       <Header title={ heading } search />
+      <Footer />
       {Object.keys(categorys).length !== 0 && categorys[recipeObj].map((category) => (
         <button
           type="button"

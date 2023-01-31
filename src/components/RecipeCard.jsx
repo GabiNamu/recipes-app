@@ -13,7 +13,7 @@ function RecipeCard({ recipeObj }) {
       console.log(newRecipes);
       setRecipeList({ [recipeObj]: newRecipes });
     }
-  }, [recipeList]);
+  }, [recipeList, recipeObj, setRecipeList]);
 
   useEffect(() => {
     const fetchRecipes = async () => {
@@ -28,7 +28,7 @@ function RecipeCard({ recipeObj }) {
       }
     };
     fetchRecipes();
-  }, []);
+  }, [recipeObj, setRecipeList]);
   console.log(recipeList);
   const handleClick = (id) => (history.push(`/${recipeObj}/${id}`));
   return (
