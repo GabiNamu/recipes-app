@@ -1,7 +1,17 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 
 function RecipeDetails() {
-  return <h1>RecipeDetails</h1>;
+  const history = useHistory();
+  const handleClick = () => {
+    history.push(`${history.location.pathname}/in-progress`);
+  };
+
+  return (
+    <div>
+      <button onClick={ handleClick }>send url</button>
+    </div>
+  );
 }
 
 export default RecipeDetails;
