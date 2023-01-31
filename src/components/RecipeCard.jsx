@@ -30,7 +30,10 @@ function RecipeCard({ recipeObj }) {
     fetchRecipes();
   }, [recipeObj, setRecipeList]);
   console.log(recipeList);
-  const handleClick = (id) => (history.push(`/${recipeObj}/${id}`));
+  const handleClick = (id) => {
+    console.log(`/${recipeObj}/${id}`);
+    history.push(`/${recipeObj}/${id}`);
+  };
   return (
     <div>
       <ul>

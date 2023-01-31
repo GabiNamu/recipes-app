@@ -481,6 +481,26 @@ export const mockCategory = {
   ],
 };
 
+export const mockCategoryDrink = {
+  drinks: [
+    {
+      strCategory: 'Ordinary Drink',
+    },
+    {
+      strCategory: 'Cocktail',
+    },
+    {
+      strCategory: 'Shake',
+    },
+    {
+      strCategory: 'Other / Unknown',
+    },
+    {
+      strCategory: 'Cocoa',
+    },
+  ],
+};
+
 export const storageMock = (() => {
   let store = {
     user: {

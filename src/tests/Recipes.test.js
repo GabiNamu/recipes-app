@@ -5,7 +5,7 @@ import { act } from 'react-dom/test-utils';
 import renderWithRouter from './helpers/renderWithRouter';
 import ApiProvider from '../context/provider/ApiProvider';
 import App from '../App';
-import { mock, mockBeef, mockBreackfast, mockCategory, mockCocoa, mockDrink, mockGoat, mockOrdinary, mockShake } from './helpers/mockData';
+import { mock, mockBeef, mockBreackfast, mockCategory, mockCategoryDrink, mockCocoa, mockDrink, mockGoat, mockShake } from './helpers/mockData';
 
 test('', async () => {
   jest.spyOn(global, 'fetch');
@@ -172,7 +172,29 @@ test('', async () => {
 test('', async () => {
   jest.spyOn(global, 'fetch');
   global.fetch.mockResolvedValue({
-    json: jest.fn().mockResolvedValue(mockOrdinary),
+    json: jest.fn().mockResolvedValue(mockGoat),
+  });
+
+  const { history } = renderWithRouter(
+    <ApiProvider>
+      <App />
+    </ApiProvider>,
+  );
+  await act(async () => {
+    history.push('/meals');
+  });
+
+  const button = await screen.findAllByRole('button');
+
+  userEvent.click(button[2]);
+
+  expect(await screen.findByText(/Mbuzi Choma/i)).toBeInTheDocument();
+});
+
+test('', async () => {
+  jest.spyOn(global, 'fetch');
+  global.fetch.mockResolvedValue({
+    json: jest.fn().mockResolvedValue(mockShake),
   });
 
   const { history } = renderWithRouter(
@@ -186,89 +208,98 @@ test('', async () => {
 
   const button = await screen.findAllByRole('button');
 
-  userEvent.click(button[2]);
-
-  expect(await screen.findByText(/3-Mile Long Island Iced Tea/i)).toBeInTheDocument();
-  expect(await screen.findByText(/410 Gone/i)).toBeInTheDocument();
-  expect(await screen.findByText(/501 Blue/i)).toBeInTheDocument();
+  userEvent.click(button[4]);
+  expect(await screen.findByText(/151 Florida Bushwacker/i)).toBeInTheDocument();
+  expect(await screen.findByText(/Avalanche/i)).toBeInTheDocument();
+  expect(await screen.findByText(/Baby Eskimo/i)).toBeInTheDocument();
 });
 
-// test('', async () => {
-//   jest.spyOn(global, 'fetch');
-//   global.fetch.mockResolvedValue({
-//     json: jest.fn().mockResolvedValue(mockGoat),
-//   });
+test('', async () => {
+  jest.spyOn(global, 'fetch');
+  global.fetch.mockResolvedValueOnce({
+    json: jest.fn().mockResolvedValue(mock),
+  });
+  jest.spyOn(global, 'fetch');
+  global.fetch.mockResolvedValueOnce({
+    json: jest.fn().mockResolvedValue(mockCategory),
+  });
+  jest.spyOn(global, 'fetch');
+  global.fetch.mockResolvedValueOnce({
+    json: jest.fn().mockResolvedValue(mockBeef),
+  });
+  const { history } = renderWithRouter(
+    <ApiProvider>
+      <App />
+    </ApiProvider>,
+  );
+  await act(async () => {
+    history.push('/meals');
+  });
 
-//   const { history } = renderWithRouter(
-//     <ApiProvider>
-//       <App />
-//     </ApiProvider>,
-//   );
-//   await act(async () => {
-//     history.push('/meals');
-//   });
+  const button = await screen.findByRole('button', {
+    name: /beef/i,
+  });
 
-//   const button = await screen.findAllByRole('button');
+  userEvent.click(button);
+  expect(await screen.findByText(/beef and mustard pie/i)).toBeInTheDocument();
+});
 
-//   userEvent.click(button[2]);
+test('', async () => {
+  jest.spyOn(global, 'fetch');
+  global.fetch.mockResolvedValueOnce({
+    json: jest.fn().mockResolvedValue(mock),
+  });
+  jest.spyOn(global, 'fetch');
+  global.fetch.mockResolvedValueOnce({
+    json: jest.fn().mockResolvedValue(mockCategory),
+  });
+  jest.spyOn(global, 'fetch');
+  global.fetch.mockResolvedValueOnce({
+    json: jest.fn().mockResolvedValue(mock),
+  });
+  const { history } = renderWithRouter(
+    <ApiProvider>
+      <App />
+    </ApiProvider>,
+  );
+  await act(async () => {
+    history.push('/meals');
+  });
 
-//   expect(await screen.findByText(/Mbuzi Choma/i)).toBeInTheDocument();
-// });
+  const button = await screen.findByRole('button', {
+    name: /all/i,
+  });
 
-// test('', async () => {
-//   jest.spyOn(global, 'fetch');
-//   global.fetch.mockResolvedValue({
-//     json: jest.fn().mockResolvedValue(mockShake),
-//   });
+  userEvent.click(button);
+  expect(await screen.findByText(/corba/i)).toBeInTheDocument();
+});
 
-//   const { history } = renderWithRouter(
-//     <ApiProvider>
-//       <App />
-//     </ApiProvider>,
-//   );
-//   await act(async () => {
-//     history.push('/drinks');
-//   });
+test('', async () => {
+  jest.spyOn(global, 'fetch');
+  global.fetch.mockResolvedValueOnce({
+    json: jest.fn().mockResolvedValue(mockDrink),
+  });
+  jest.spyOn(global, 'fetch');
+  global.fetch.mockResolvedValueOnce({
+    json: jest.fn().mockResolvedValue(mockCategoryDrink),
+  });
+  jest.spyOn(global, 'fetch');
+  global.fetch.mockResolvedValueOnce({
+    json: jest.fn().mockResolvedValue(mockDrink),
+  });
+  const { history } = renderWithRouter(
+    <ApiProvider>
+      <App />
+    </ApiProvider>,
+  );
+  await act(async () => {
+    history.push('/drinks');
+  });
 
-//   const button = await screen.findAllByRole('button');
+  const button = await screen.findByRole('button', {
+    name: /all/i,
+  });
 
-//   userEvent.click(button[4]);
-//   expect(await screen.findByText(/151 Florida Bushwacker/i)).toBeInTheDocument();
-//   expect(await screen.findByText(/Avalanche/i)).toBeInTheDocument();
-//   expect(await screen.findByText(/Baby Eskimo/i)).toBeInTheDocument();
-// });
-
-// test('', async () => {
-//   global.fetch = jest.fn().mockImplementation((url) => {
-//     switch (url) {
-//     case 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=':
-//       return Promise.resolve({
-//         ok: true,
-//         json: jest.fn().mockResolvedValue(mock),
-//       });
-//     case 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list':
-//       return Promise.resolve({
-//         ok: true,
-//         json: jest.fn().mockResolvedValue(mockCategory),
-//       });
-//     default:
-//       return {};
-//     }
-//   });
-//   const { history } = renderWithRouter(
-//     <ApiProvider>
-//       <App />
-//     </ApiProvider>,
-//   );
-//   await act(async () => {
-//     history.push('/meals');
-//   });
-
-//   // const button = await screen.findAllByRole('button');
-//   // console.log(button);
-
-//   // userEvent.click(button[2]);
-//   // userEvent.click(button[2]);
-
-//   // expect(await screen.findByText(/corba/i)).toBeInTheDocument();
-// });
+  userEvent.click(button);
+  expect(await screen.findByText(/gg/i)).toBeInTheDocument();
+});
