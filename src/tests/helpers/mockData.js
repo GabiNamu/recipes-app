@@ -530,3 +530,53 @@ export const storageMock = (() => {
     },
   };
 })();
+
+export const storageMockDoneRecipes = (() => {
+  let store = {
+    doneRecipes: [{
+      id: '15997',
+      type: 'drink',
+      nationality: '',
+      category: 'Ordinary Drink',
+      alcoholicOrNot: 'alcoholic',
+      name: 'GG',
+      image: 'https://www.thecocktaildb.com/images/media/drink/vyxwut1468875960.jpg',
+      doneDate: '2016-07-18 22:06:00',
+      tags: [],
+    },
+    {
+      id: '52977',
+      type: 'meal',
+      nationality: '',
+      category: 'Side',
+      alcoholicOrNot: '',
+      name: 'Corba',
+      image: 'https://www.themealdb.com/images/media/meals/58oia61564916529.jpg',
+      doneDate: '2016-07-18 22:06:00',
+      tags: ['Soup'],
+    },
+    ],
+  };
+
+  return {
+    getItem(key) {
+      return JSON.stringify(store[key]);
+    },
+
+    setItem(key, value) {
+      store[key] = value;
+    },
+
+    clear() {
+      store = {};
+    },
+
+    removeItem(key) {
+      delete store[key];
+    },
+
+    getAll() {
+      return store;
+    },
+  };
+})();

@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react';
+import copy from 'clipboard-copy';
 import { useHistory } from 'react-router-dom';
 import { Context } from '../context/provider/ApiProvider';
 import shareIcon from '../images/shareIcon.svg';
@@ -17,7 +18,10 @@ function DoneRecipeCard() {
     <div>
       {Recipes.length !== 0 && Recipes.map((recipe, index) => (
         <div key={ index }>
-          <button type="button" onClick={ () => history.push(`/drinks/${recipe.id}`) }>
+          <button
+            type="button"
+            onClick={ () => history.push(`/${recipe.type}s/${recipe.id}`) }
+          >
             <img
               src={ recipe.image }
               alt={ recipe.name }
@@ -29,7 +33,10 @@ function DoneRecipeCard() {
             { recipe.type === 'meal'
               ? `${recipe.nationality} - ${recipe.category}` : recipe.alcoholicOrNot }
           </p>
-          <button type="button" onClick={ () => history.push(`/drinks/${recipe.id}`) }>
+          <button
+            type="button"
+            onClick={ () => history.push(`/${recipe.type}s/${recipe.id}`) }
+          >
             <p data-testid={ `${index}-horizontal-name` }>{ recipe.name }</p>
           </button>
 
@@ -39,7 +46,7 @@ function DoneRecipeCard() {
             data-testid={ `${index}-horizontal-share-btn` }
             onClick={ handleShare }
           >
-            { shareIcon }
+            <img src={ shareIcon } alt="share icon" />
           </button>
           {show && <p>Link copied!</p> }
           { recipe.type === 'meal' && (

@@ -24,6 +24,7 @@ function DoneRecipes() {
     if (type === 'drink') {
       const drink = doneRecipes.filter((recipe) => recipe.type === 'drink');
       setRecipes(drink);
+      return;
     }
     setRecipes(doneRecipes);
   };
