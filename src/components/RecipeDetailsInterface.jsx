@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import RecomendationsCards from './RecomendationsCards';
 import StartRecipeButton from './StartRecipeButton';
+import ShareRecipeButton from './ShareRecipeButton';
+import FavoriteRecipeButton from './FavoriteRecipeButton';
 
 function RecipeDetailsInterface({ props: [loading, setLoading, path, id] }) {
   const [recipesRequestApi, setRecipesRequestApi] = useState(null);
@@ -78,6 +80,8 @@ function RecipeDetailsInterface({ props: [loading, setLoading, path, id] }) {
         <StartRecipeButton
           recipesRequestApi={ recipesRequestApi }
         />
+        <ShareRecipeButton />
+        <FavoriteRecipeButton />
       </div>
     );
   }
@@ -121,6 +125,8 @@ function RecipeDetailsInterface({ props: [loading, setLoading, path, id] }) {
       <StartRecipeButton
         recipesRequestApi={ recipesRequestApi }
       />
+      <ShareRecipeButton />
+      <FavoriteRecipeButton />
     </div>
   );
 }
