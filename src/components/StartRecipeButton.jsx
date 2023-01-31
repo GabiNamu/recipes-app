@@ -1,7 +1,17 @@
 import React from 'react';
 import Proptypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 
 function StartRecipeButton({ recipesRequestApi }) {
+  const history = useHistory();
+
+  const handleClick = () => {
+    const thisPath = history.location.pathname;
+    const productId = thisPath.split('/')[2];
+    const recipeType = thisPath.split('/')[1];
+    history.push(`/${recipeType}/${productId}/in-progress`);
+  };
+
   if (localStorage.getItem('doneRecipes')) {
     if (JSON.parse(localStorage.getItem('doneRecipes'))
       .find({}.id === recipesRequestApi.drinks[0].idDrink
@@ -11,18 +21,14 @@ function StartRecipeButton({ recipesRequestApi }) {
     return (
       <button
         data-testid="start-recipe-btn"
+        type="button"
         style={ { position: 'fixed', bottom: 0 } }
+        onClick={ handleClick }
       >
         Start Recipe
       </button>
     );
   }
-
-  // const inProgressRecipes = {
-  //   meals: {
-  //     52771: [],
-  //   },
-  // };
   if (localStorage.getItem('inProgressRecipes')
   && (JSON.parse(localStorage.getItem('inProgressRecipes')).drinks)) {
     if (Object.keys(JSON.parse(localStorage.getItem('inProgressRecipes')).drinks)
@@ -30,7 +36,9 @@ function StartRecipeButton({ recipesRequestApi }) {
       return (
         <button
           data-testid="start-recipe-btn"
+          type="button"
           style={ { position: 'fixed', bottom: 0 } }
+          onClick={ handleClick }
         >
           Continue Recipe
         </button>
@@ -39,7 +47,9 @@ function StartRecipeButton({ recipesRequestApi }) {
     return (
       <button
         data-testid="start-recipe-btn"
+        type="button"
         style={ { position: 'fixed', bottom: 0 } }
+        onClick={ handleClick }
       >
         Start Recipe
       </button>
@@ -52,7 +62,9 @@ function StartRecipeButton({ recipesRequestApi }) {
       return (
         <button
           data-testid="start-recipe-btn"
+          type="button"
           style={ { position: 'fixed', bottom: 0 } }
+          onClick={ handleClick }
         >
           Continue Recipe
         </button>
@@ -61,7 +73,9 @@ function StartRecipeButton({ recipesRequestApi }) {
     return (
       <button
         data-testid="start-recipe-btn"
+        type="button"
         style={ { position: 'fixed', bottom: 0 } }
+        onClick={ handleClick }
       >
         Start Recipe
       </button>
@@ -70,7 +84,9 @@ function StartRecipeButton({ recipesRequestApi }) {
   return (
     <button
       data-testid="start-recipe-btn"
+      type="button"
       style={ { position: 'fixed', bottom: 0 } }
+      onClick={ handleClick }
     >
       Start Recipe
     </button>

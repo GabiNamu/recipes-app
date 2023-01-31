@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import RecomendationsCards from './RecomendationsCards';
 import StartRecipeButton from './StartRecipeButton';
+import ShareRecipeButton from './ShareRecipeButton';
+import FavoriteRecipeButton from './FavoriteRecipeButton';
 
 function RecipeDetailsInterface({ props: [loading, setLoading, path, id] }) {
   const [recipesRequestApi, setRecipesRequestApi] = useState(null);
@@ -28,11 +30,9 @@ function RecipeDetailsInterface({ props: [loading, setLoading, path, id] }) {
 
   if (path.includes('meals')) {
     const mealIngredients = Object.entries(recipesRequestApi.meals[0])
-      .filter((pair) => (pair[0].includes('strIngredient'))
-    && pair[1] !== null && pair[1] !== '');
+      .filter((pair) => (pair[0].includes('strIngredient')));
     const mealQuantityIngredients = Object.entries(recipesRequestApi.meals[0])
-      .filter((pair) => (pair[0].includes('strMeasure'))
-    && pair[1] !== null && pair[1] !== '');
+      .filter((pair) => (pair[0].includes('strMeasure')));
     const mealRecipeVideoUrl = recipesRequestApi.meals[0].strYoutube
       .substr(mealSubStrIndexStart);
 
@@ -50,12 +50,15 @@ function RecipeDetailsInterface({ props: [loading, setLoading, path, id] }) {
           alt="RecipeImg"
           data-testid="recipe-photo"
         />
-        {mealIngredients.map((pair, index) => (
+        {mealIngredients?.map((pair, index) => (
+          pair[1]
+        && (
           <li key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
-            {`${pair[1]} `}
-            :
-            {` ${mealQuantityIngredients[index][1]}` }
+            { `${pair[1]} `}
+            { mealQuantityIngredients[index][1]
+          && `: ${mealQuantityIngredients[index][1]}`}
           </li>
+        )
         ))}
         <p data-testid="instructions">
           {recipesRequestApi.meals[0].strInstructions}
@@ -74,17 +77,19 @@ function RecipeDetailsInterface({ props: [loading, setLoading, path, id] }) {
           recipesRecomendations={ recipesRecomendations.drinks
             .slice(undefined, carouselRendering) }
         />
-        <StartRecipeButton recipesRequestApi={ recipesRequestApi } />
+        <StartRecipeButton
+          recipesRequestApi={ recipesRequestApi }
+        />
+        <ShareRecipeButton />
+        <FavoriteRecipeButton />
       </div>
     );
   }
 
   const drinkIngredients = Object.entries(recipesRequestApi.drinks[0])
-    .filter((pair) => (pair[0].includes('strIngredient'))
-    && pair[1] !== null && pair[1] !== '');
+    .filter((pair) => (pair[0].includes('strIngredient')));
   const drinkQuantityIngredients = Object.entries(recipesRequestApi.drinks[0])
-    .filter((pair) => (pair[0].includes('strMeasure'))
-    && pair[1] !== null && pair[1] !== '');
+    .filter((pair) => (pair[0].includes('strMeasure')));
 
   return (
     <div>
@@ -100,12 +105,15 @@ function RecipeDetailsInterface({ props: [loading, setLoading, path, id] }) {
         alt="RecipeImg"
         data-testid="recipe-photo"
       />
-      {drinkIngredients.map((pair, index) => (
-        <li key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
-          {`${pair[1]} `}
-          :
-          {` ${drinkQuantityIngredients[index][1]}` }
-        </li>
+      {drinkIngredients?.map((pair, index) => (
+        pair[1]
+        && (
+          <li key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
+            { `${pair[1]} `}
+            { drinkQuantityIngredients[index][1]
+          && `: ${drinkQuantityIngredients[index][1]}`}
+          </li>
+        )
       ))}
       <p data-testid="instructions">
         { recipesRequestApi.drinks[0].strInstructions}
@@ -114,7 +122,11 @@ function RecipeDetailsInterface({ props: [loading, setLoading, path, id] }) {
         recipesRecomendations={ recipesRecomendations.meals
           .slice(undefined, carouselRendering) }
       />
-      <StartRecipeButton recipesRequestApi={ recipesRequestApi } />
+      <StartRecipeButton
+        recipesRequestApi={ recipesRequestApi }
+      />
+      <ShareRecipeButton />
+      <FavoriteRecipeButton />
     </div>
   );
 }
