@@ -9,20 +9,21 @@ function DoneRecipeCard() {
   const { Recipes } = useContext(Context);
   const [show, setShow] = useState(false);
 
-  const handleShare = () => {
-    copy(`http://localhost:3000${history.location.pathname}`);
+  const handleShare = (type, id) => {
+    copy(`http://localhost:3000/${type}s/${id}`);
     setShow(true);
   };
 
   return (
     <div>
       {Recipes.length !== 0 && Recipes.map((recipe, index) => (
-        <div key={ index }>
+        <div key={ index } style={ { width: '200px' } }>
           <button
             type="button"
             onClick={ () => history.push(`/${recipe.type}s/${recipe.id}`) }
           >
             <img
+              style={ { width: '200px' } }
               src={ recipe.image }
               alt={ recipe.name }
               data-testid={ `${index}-horizontal-image` }
@@ -43,10 +44,13 @@ function DoneRecipeCard() {
           <p data-testid={ `${index}-horizontal-done-date` }>{ recipe.doneDate }</p>
           <button
             type="button"
-            data-testid={ `${index}-horizontal-share-btn` }
-            onClick={ handleShare }
+            onClick={ () => handleShare(recipe.type, recipe.id) }
           >
-            <img src={ shareIcon } alt="share icon" />
+            <img
+              data-testid={ `${index}-horizontal-share-btn` }
+              src={ shareIcon }
+              alt="share icon"
+            />
           </button>
           {show && <p>Link copied!</p> }
           { recipe.type === 'meal' && (
@@ -58,7 +62,7 @@ function DoneRecipeCard() {
 
               </p>
               <p
-                data-testid={ `1-${recipe.tags[1]}-horizontal-tag` }
+                data-testid={ `0-${recipe.tags[1]}-horizontal-tag` }
               >
                 {recipe.tags[1]}
 

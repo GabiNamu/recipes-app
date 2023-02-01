@@ -47,7 +47,7 @@ test('', async () => {
   userEvent.click(mealsButton);
   const category = screen.getByTestId('0-horizontal-top-text');
   expect(category).toBeInTheDocument();
-  expect(screen.getByText('brazil - Side')).toBeInTheDocument();
+  expect(screen.getByText('Brazil - Side')).toBeInTheDocument();
   expect(screen.queryByText(/gg/i)).not.toBeInTheDocument();
   expect(screen.queryByText(/corba/i)).toBeInTheDocument();
 
