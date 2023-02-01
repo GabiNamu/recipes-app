@@ -547,7 +547,7 @@ export const storageMockDoneRecipes = (() => {
     {
       id: '52977',
       type: 'meal',
-      nationality: '',
+      nationality: 'Brazil',
       category: 'Side',
       alcoholicOrNot: '',
       name: 'Corba',

@@ -7,7 +7,7 @@ import ApiProvider from '../context/provider/ApiProvider';
 import App from '../App';
 import { mock, mockBeef, mockBreackfast, mockCategory, mockCategoryDrink, mockCocoa, mockDrink, mockGoat, mockShake } from './helpers/mockData';
 
-test('', async () => {
+test('Recipes - click - Button - Meals', async () => {
   jest.spyOn(global, 'fetch');
   global.fetch.mockResolvedValue({
     json: jest.fn().mockResolvedValue(mock),
@@ -30,7 +30,7 @@ test('', async () => {
   expect(history.location.pathname).toBe('/meals/52977');
 });
 
-test('', async () => {
+test('Recipes - Meals - Categorys', async () => {
   jest.spyOn(global, 'fetch');
   global.fetch.mockResolvedValue({
     json: jest.fn().mockResolvedValue(mockCategory),
@@ -68,7 +68,7 @@ test('', async () => {
   expect(Goat).toBeInTheDocument();
 });
 
-test('', async () => {
+test('Recipes - click - button - Drinks', async () => {
   jest.spyOn(global, 'fetch');
   global.fetch.mockResolvedValue({
     json: jest.fn().mockResolvedValue(mockDrink),
@@ -97,7 +97,7 @@ test('', async () => {
   expect(history.location.pathname).toBe('/drinks/15997');
 });
 
-test('', async () => {
+test('Recipes - Meals - Click - Beef', async () => {
   jest.spyOn(global, 'fetch');
   global.fetch.mockResolvedValue({
     json: jest.fn().mockResolvedValue(mockBeef),
@@ -121,7 +121,7 @@ test('', async () => {
   expect(await screen.findByText(/Beef Banh Mi Bowls with Sriracha Mayo, Carrot & Pickled Cucumber/i)).toBeInTheDocument();
 });
 
-test('', async () => {
+test('Recipes - Meals - Click - Brackfast', async () => {
   jest.spyOn(global, 'fetch');
   global.fetch.mockResolvedValue({
     json: jest.fn().mockResolvedValue(mockBreackfast),
@@ -145,7 +145,7 @@ test('', async () => {
   expect(await screen.findByText(/Fruit and Cream Cheese Breakfast Pastries/i)).toBeInTheDocument();
 });
 
-test('', async () => {
+test('Recipes - Drinks - Click - Cocoa', async () => {
   jest.spyOn(global, 'fetch');
   global.fetch.mockResolvedValue({
     json: jest.fn().mockResolvedValue(mockCocoa),
@@ -169,7 +169,7 @@ test('', async () => {
   expect(await screen.findByText(/Chocolate Drink/i)).toBeInTheDocument();
 });
 
-test('', async () => {
+test('Recipes - Meals - Click - Goat', async () => {
   jest.spyOn(global, 'fetch');
   global.fetch.mockResolvedValue({
     json: jest.fn().mockResolvedValue(mockGoat),
@@ -191,7 +191,7 @@ test('', async () => {
   expect(await screen.findByText(/Mbuzi Choma/i)).toBeInTheDocument();
 });
 
-test('', async () => {
+test('Recipes - Drinks - Click - Shake', async () => {
   jest.spyOn(global, 'fetch');
   global.fetch.mockResolvedValue({
     json: jest.fn().mockResolvedValue(mockShake),
@@ -214,7 +214,7 @@ test('', async () => {
   expect(await screen.findByText(/Baby Eskimo/i)).toBeInTheDocument();
 });
 
-test('', async () => {
+test('Recipes - test - category', async () => {
   jest.spyOn(global, 'fetch');
   global.fetch.mockResolvedValueOnce({
     json: jest.fn().mockResolvedValue(mock),
@@ -244,7 +244,7 @@ test('', async () => {
   expect(await screen.findByText(/beef and mustard pie/i)).toBeInTheDocument();
 });
 
-test('', async () => {
+test('Recipes - Meals - Click - All', async () => {
   jest.spyOn(global, 'fetch');
   global.fetch.mockResolvedValueOnce({
     json: jest.fn().mockResolvedValue(mock),
@@ -274,7 +274,7 @@ test('', async () => {
   expect(await screen.findByText(/corba/i)).toBeInTheDocument();
 });
 
-test('', async () => {
+test('Recipes - Drinks - Click - All', async () => {
   jest.spyOn(global, 'fetch');
   global.fetch.mockResolvedValueOnce({
     json: jest.fn().mockResolvedValue(mockDrink),
