@@ -2,7 +2,7 @@ import React from 'react';
 import Proptypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 
-function StartRecipeButton({ recipesRequestApi }) {
+function StartRecipeButton({ recipeRequestApi }) {
   const history = useHistory();
 
   const handleClick = () => {
@@ -14,8 +14,8 @@ function StartRecipeButton({ recipesRequestApi }) {
 
   if (localStorage.getItem('doneRecipes')) {
     if (JSON.parse(localStorage.getItem('doneRecipes'))
-      .find({}.id === recipesRequestApi.drinks[0].idDrink
-        || recipesRequestApi.meals[0].idMeal)) {
+      .find({}.id === recipeRequestApi.idDrink
+        || recipeRequestApi.idMeal)) {
       return;
     }
     return (
@@ -32,7 +32,7 @@ function StartRecipeButton({ recipesRequestApi }) {
   if (localStorage.getItem('inProgressRecipes')
   && (JSON.parse(localStorage.getItem('inProgressRecipes')).drinks)) {
     if (Object.keys(JSON.parse(localStorage.getItem('inProgressRecipes')).drinks)
-      .some((element) => element === recipesRequestApi.drinks[0].idDrink)) {
+      .some((element) => element === recipeRequestApi.idDrink)) {
       return (
         <button
           data-testid="start-recipe-btn"
@@ -58,7 +58,7 @@ function StartRecipeButton({ recipesRequestApi }) {
   if (localStorage.getItem('inProgressRecipes')
   && (JSON.parse(localStorage.getItem('inProgressRecipes')).meals)) {
     if (Object.keys(JSON.parse(localStorage.getItem('inProgressRecipes')).meals)
-      .some((element) => element === recipesRequestApi.meals[0].idMeal)) {
+      .some((element) => element === recipeRequestApi.idMeal)) {
       return (
         <button
           data-testid="start-recipe-btn"
@@ -94,7 +94,7 @@ function StartRecipeButton({ recipesRequestApi }) {
 }
 
 StartRecipeButton.propTypes = {
-  recipesRequestApi: Proptypes.shape(Proptypes.array.isRequired).isRequired,
+  recipeRequestApi: Proptypes.shape(Proptypes.array.isRequired).isRequired,
 };
 
 export default StartRecipeButton;

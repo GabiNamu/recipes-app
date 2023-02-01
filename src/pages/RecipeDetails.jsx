@@ -1,20 +1,24 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import RecipeDetailsInterface from '../components/RecipeDetailsInterface';
+import MealDetailsInterface from '../components/MealDetailsInterface';
+import DrinkDetailsInterface from '../components/DrinkDetailsInterface';
 
-function RecipeDetails({ history, match: { path, params: { id } } }) {
+function RecipeDetails({ match: { path, params: { id } } }) {
   const [loading, setLoading] = useState(true);
 
   return (
     <div>
-      <RecipeDetailsInterface props={ [loading, setLoading, path, id, history] } />
+      {
+        path.includes('meals')
+          ? <MealDetailsInterface props={ [loading, setLoading, id] } />
+          : <DrinkDetailsInterface props={ [loading, setLoading, id] } />
+      }
     </div>
   );
 }
 
 RecipeDetails.propTypes = {
   match: PropTypes.shape(PropTypes.any.isRequired).isRequired,
-  history: PropTypes.shape(PropTypes.any.isRequired).isRequired,
 };
 
 export default RecipeDetails;
