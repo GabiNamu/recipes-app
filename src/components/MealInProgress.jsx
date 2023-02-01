@@ -2,12 +2,16 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import copy from 'clipboard-copy';
 import shareIcon from '../images/shareIcon.svg';
+import blkHeart from '../images/blackHeartIcon.svg';
+import whtHeart from '../images/whiteHeartIcon.svg';
 import { Context } from '../context/provider/ApiProvider';
 
 function MealInProgress({ productId }) {
   const { setRecipes } = useContext(Context);
   const history = useHistory();
   const thisPath = history.location.pathname;
+  const [heart, setHeart] = useState(false);
+  const [favorites, setFavorites] = useState([]);
   const [finishBtn, setFinishBtn] = useState(true);
   const [success, setSuccess] = useState(false);
   const [mealDetails, setMealDetails] = useState({});
@@ -33,6 +37,19 @@ function MealInProgress({ productId }) {
     );
     setFinishBtn(!allChecked);
   }, [checkboxState, ingredients]);
+
+  useEffect(() => {
+    const getFavoriteLocalStorage = () => {
+      setFavorites(JSON.parse(localStorage.getItem('favoriteRecipes')));
+    };
+    getFavoriteLocalStorage();
+  }, []);
+
+  useEffect(() => {
+    const getHeart = favorites?.some((favorite) => favorite.id === productId);
+    console.log(favorites);
+    setHeart(getHeart);
+  }, [favorites, productId]);
 
   const handleCheckboxChange = ({ target }) => {
     const { value } = target;
@@ -89,6 +106,32 @@ function MealInProgress({ productId }) {
     history.push('/done-recipes');
   };
 
+  const handleFavorite = async () => {
+    let favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    // Check if the array exists, if not create an empty array
+    if (!favoriteRecipes) {
+      favoriteRecipes = [];
+    } else if (favoriteRecipes.some((recipe) => recipe.id === productId)) {
+      const wanted = favoriteRecipes.filter(
+        (recipe) => recipe.id !== productId,
+      );
+      setHeart(false);
+      return localStorage.setItem('favoriteRecipes', JSON.stringify(wanted));
+    }
+    const newFavorite = {
+      id: productId,
+      type: 'meal',
+      nationality: mealDetails.strArea || '',
+      category: mealDetails.strCategory || '',
+      alcoholicOrNot: mealDetails.strAlcoholic || '',
+      name: mealDetails.strMeal,
+      image: mealDetails.strMealThumb,
+    };
+    favoriteRecipes.push(newFavorite);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
+    setHeart(true);
+  };
+
   return (
     <div>
       <div>
@@ -133,7 +176,13 @@ function MealInProgress({ productId }) {
         <button data-testid="share-btn" onClick={ handleShare }>
           <img src={ shareIcon } alt="" />
         </button>
-        <button data-testid="favorite-btn">Favorite</button>
+        <button onClick={ handleFavorite }>
+          {heart ? (
+            <img src={ blkHeart } alt="" data-testid="favorite-btn" />
+          ) : (
+            <img src={ whtHeart } alt="" data-testid="favorite-btn" />
+          )}
+        </button>
         {success && <span>Link copied!</span>}
       </div>
     </div>
