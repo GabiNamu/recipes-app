@@ -9,7 +9,7 @@ import App from '../App';
 
 const doneRecipes = '/done-recipes';
 
-test('', async () => {
+test('Done Recipes', async () => {
   jest.spyOn(global, 'fetch');
   global.fetch.mockResolvedValue({
     json: jest.fn().mockResolvedValue(mock),
