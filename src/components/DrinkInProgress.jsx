@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import copy from 'clipboard-copy';
 import shareIcon from '../images/shareIcon.svg';
+import { Context } from '../context/provider/ApiProvider';
 
 function DrinkInProgress({ productId }) {
+  const { setRecipes } = useContext(Context);
   const history = useHistory();
   const thisPath = history.location.pathname;
+  const [finishBtn, setFinishBtn] = useState(true);
   const [success, setSuccess] = useState(false);
   const [cocktail, setCocktail] = useState({});
   const [checkboxState, setCheckboxState] = useState(
@@ -13,9 +16,7 @@ function DrinkInProgress({ productId }) {
   );
 
   useEffect(() => {
-    fetch(
-      `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${productId}`,
-    )
+    fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${productId}`)
       .then((response) => response.json())
       .then((data) => setCocktail(data.drinks[0]))
       .catch((error) => console.error(error));
@@ -25,6 +26,13 @@ function DrinkInProgress({ productId }) {
     .filter(([key]) => key.includes('strIngredient'))
     .map(([, value]) => value)
     .filter((value) => value !== '' && value !== null);
+
+  useEffect(() => {
+    const allChecked = ingredients.every(
+      (ingredient) => checkboxState[ingredient],
+    );
+    setFinishBtn(!allChecked);
+  }, [checkboxState, ingredients]);
 
   const handleCheckboxChange = ({ target }) => {
     const { value } = target;
@@ -48,6 +56,39 @@ function DrinkInProgress({ productId }) {
     setSuccess(true);
   };
 
+  const todaysDate = () => {
+    const date = new Date();
+    return date.toISOString();
+  };
+
+  const handleFinish = () => {
+    const tagStr = cocktail.strTags === null ? '' : cocktail.strTags.split(',');
+
+    let doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    // Check if the array exists, if not create an empty array
+    if (!doneRecipes) {
+      doneRecipes = [];
+    }
+    // Add a new object to the array
+    const newRecipe = {
+      id: productId,
+      type: 'drink',
+      nationality: cocktail.strArea || '',
+      category: cocktail.strCategory || '',
+      alcoholicOrNot: cocktail.strAlcoholic || '',
+      name: cocktail.strDrink,
+      image: cocktail.strDrinkThumb,
+      doneDate: todaysDate(),
+      tags: tagStr || [],
+    };
+    doneRecipes.push(newRecipe);
+    // Store the updated array back in local storage
+    localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
+
+    setRecipes((prevState) => [...prevState, newRecipe]);
+    history.push('/done-recipes');
+  };
+
   return (
     <div>
       <div>
@@ -64,11 +105,9 @@ function DrinkInProgress({ productId }) {
                 htmlFor={ ingredient }
                 data-testid={ `${i}-ingredient-step` }
                 style={ {
-                  textDecoration: checkboxState[ingredient] ? (
-                    'line-through solid rgb(0, 0, 0)'
-                  ) : (
-                    'none'
-                  ),
+                  textDecoration: checkboxState[ingredient]
+                    ? 'line-through solid rgb(0, 0, 0)'
+                    : 'none',
                 } }
               >
                 {ingredient}
@@ -84,12 +123,18 @@ function DrinkInProgress({ productId }) {
             </div>
           ))}
         </div>
-        <button data-testid="finish-recipe-btn">Finish</button>
+        <button
+          data-testid="finish-recipe-btn"
+          disabled={ finishBtn }
+          onClick={ handleFinish }
+        >
+          Finish
+        </button>
         <button data-testid="share-btn" onClick={ handleShare }>
           <img src={ shareIcon } alt="" />
         </button>
         <button data-testid="favorite-btn">Favorite</button>
-        { success && <span>Link copied!</span> }
+        {success && <span>Link copied!</span>}
       </div>
     </div>
   );
