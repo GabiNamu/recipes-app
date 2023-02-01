@@ -1,13 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import copy from 'clipboard-copy';
 import shareIcon from '../images/shareIcon.svg';
+import { Context } from '../context/provider/ApiProvider';
 
 function MealInProgress({ productId }) {
+  const { setRecipes } = useContext(Context);
   const history = useHistory();
   const thisPath = history.location.pathname;
-  const [mealDetails, setMealDetails] = useState({});
+  const [finishBtn, setFinishBtn] = useState(true);
   const [success, setSuccess] = useState(false);
+  const [mealDetails, setMealDetails] = useState({});
   const [checkboxState, setCheckboxState] = useState(
     JSON.parse(localStorage.getItem('inProgressRecipes')) || {},
   );
@@ -24,7 +27,12 @@ function MealInProgress({ productId }) {
     .map(([, value]) => value)
     .filter((value) => value !== '' && value !== null);
 
-  console.log(ingredients);
+  useEffect(() => {
+    const allChecked = ingredients.every(
+      (ingredient) => checkboxState[ingredient],
+    );
+    setFinishBtn(!allChecked);
+  }, [checkboxState, ingredients]);
 
   const handleCheckboxChange = ({ target }) => {
     const { value } = target;
@@ -46,6 +54,39 @@ function MealInProgress({ productId }) {
   const handleShare = () => {
     copy(`http://localhost:3000${thisPath.replace('/in-progress', '')}`);
     setSuccess(true);
+  };
+
+  const todaysDate = () => {
+    const date = new Date();
+    return date.toISOString();
+  };
+
+  const handleFinish = () => {
+    const tagStr = mealDetails.strTags === null ? '' : mealDetails.strTags.split(',');
+
+    let doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    // Check if the array exists, if not create an empty array
+    if (!doneRecipes) {
+      doneRecipes = [];
+    }
+    // Add a new object to the array
+    const newRecipe = {
+      id: productId,
+      type: 'meal',
+      nationality: mealDetails.strArea || '',
+      category: mealDetails.strCategory || '',
+      alcoholicOrNot: mealDetails.strAlcoholic || '',
+      name: mealDetails.strMeal,
+      image: mealDetails.strMealThumb,
+      doneDate: todaysDate(),
+      tags: tagStr || [],
+    };
+    doneRecipes.push(newRecipe);
+    // Store the updated array back in local storage
+    localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
+
+    setRecipes((prevState) => [...prevState, newRecipe]);
+    history.push('/done-recipes');
   };
 
   return (
@@ -84,15 +125,16 @@ function MealInProgress({ productId }) {
         </div>
         <button
           data-testid="finish-recipe-btn"
+          disabled={ finishBtn }
+          onClick={ handleFinish }
         >
           Finish
-
         </button>
         <button data-testid="share-btn" onClick={ handleShare }>
           <img src={ shareIcon } alt="" />
         </button>
         <button data-testid="favorite-btn">Favorite</button>
-        { success && <span>Link copied!</span> }
+        {success && <span>Link copied!</span>}
       </div>
     </div>
   );
