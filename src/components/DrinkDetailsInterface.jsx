@@ -60,15 +60,17 @@ function DrinkDetailsInterface({ props: [loading, setLoading, id] }) {
       <p data-testid="instructions">
         { recipeRequestApi.strInstructions}
       </p>
-      <RecomendationsCards
-        recipesRecomendations={ mealsRecommendation
-          .slice(undefined, carouselRendering) }
-      />
       <StartRecipeButton
         recipeRequestApi={ recipeRequestApi }
       />
       <ShareRecipeButton />
-      <FavoriteRecipeButton />
+      <FavoriteRecipeButton
+        recipeRequestApi={ recipeRequestApi }
+      />
+      <RecomendationsCards
+        recipesRecomendations={ mealsRecommendation
+          .slice(undefined, carouselRendering) }
+      />
     </div>
   );
 }

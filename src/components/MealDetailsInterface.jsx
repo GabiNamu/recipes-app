@@ -73,6 +73,10 @@ function MealDetailsInterface({ props: [loading, setLoading, id] }) {
         allowFullScreen
         data-testid="video"
       />
+      <ShareRecipeButton />
+      <FavoriteRecipeButton
+        recipeRequestApi={ recipeRequestApi }
+      />
       <RecomendationsCards
         recipesRecomendations={ drinksRecommendation
           .slice(undefined, carouselRendering) }
@@ -80,8 +84,6 @@ function MealDetailsInterface({ props: [loading, setLoading, id] }) {
       <StartRecipeButton
         recipeRequestApi={ recipeRequestApi }
       />
-      <ShareRecipeButton />
-      <FavoriteRecipeButton />
     </div>
   );
 }

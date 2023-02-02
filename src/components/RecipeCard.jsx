@@ -10,7 +10,6 @@ function RecipeCard({ recipeObj }) {
     if (Object.keys(recipeList).length !== 0
       && recipeList[recipeObj] && recipeList[recipeObj].length > Number('12')) {
       const newRecipes = recipeList[recipeObj].slice(0, Number('12'));
-      console.log(newRecipes);
       setRecipeList({ [recipeObj]: newRecipes });
     }
   }, [recipeList, recipeObj, setRecipeList]);
@@ -29,9 +28,7 @@ function RecipeCard({ recipeObj }) {
     };
     fetchRecipes();
   }, [recipeObj, setRecipeList]);
-  console.log(recipeList);
   const handleClick = (id) => {
-    console.log(`/${recipeObj}/${id}`);
     history.push(`/${recipeObj}/${id}`);
   };
   return (

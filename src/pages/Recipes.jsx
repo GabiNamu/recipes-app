@@ -13,11 +13,9 @@ function Recipes() {
   const [categorys, setCategorys] = useState({});
   const heading = history.location.pathname === '/meals' ? 'Meals' : 'Drinks';
   const recipeObj = heading.toLowerCase();
-  console.log(categorys);
   useEffect(() => {
     const fetchCategorys = async () => {
       if (recipeObj === 'meals') {
-        console.log(recipeObj);
         const resultCategorys = await getRecipes('https://www.themealdb.com/api/json/v1/1/list.php?c=list');
         const cat = resultCategorys.meals.slice(0, Number('5'));
         setCategorys({ meals: cat });
