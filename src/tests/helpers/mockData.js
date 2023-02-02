@@ -1,8 +1,11 @@
+const newLocal = 'https://www.themealdb.com/images/media/meals/58oia61564916529.jpg';
+const newLocal2 = 'https://www.thecocktaildb.com/images/media/drink/vyxwut1468875960.jpg';
+const ordinaryDrink = 'Ordinary Drink';
 export const mock = { meals: [
   {
     idMeal: '52977',
     strMeal: 'Corba',
-    strMealThumb: 'https://www.themealdb.com/images/media/meals/58oia61564916529.jpg',
+    strMealThumb: newLocal,
   },
   {
     idMeal: '53060',
@@ -51,7 +54,7 @@ export const mockDrink = { drinks: [
   {
     idDrink: '15997',
     strDrink: 'GG',
-    strDrinkThumb: 'https://www.thecocktaildb.com/images/media/drink/vyxwut1468875960.jpg',
+    strDrinkThumb: newLocal2,
   },
   {
     idDrink: '17222',
@@ -484,7 +487,7 @@ export const mockCategory = {
 export const mockCategoryDrink = {
   drinks: [
     {
-      strCategory: 'Ordinary Drink',
+      strCategory: ordinaryDrink,
     },
     {
       strCategory: 'Cocktail',
@@ -537,7 +540,57 @@ export const storageMockDoneRecipes = (() => {
       id: '15997',
       type: 'drink',
       nationality: '',
-      category: 'Ordinary Drink',
+      category: ordinaryDrink,
+      alcoholicOrNot: 'alcoholic',
+      name: 'GG',
+      image: newLocal2,
+      doneDate: '2018-07-18 22:06:00',
+      tags: [],
+    },
+    {
+      id: '52977',
+      type: 'meal',
+      nationality: 'Brazil',
+      category: 'Side',
+      alcoholicOrNot: '',
+      name: 'Corba',
+      image: newLocal,
+      doneDate: '2019-07-18 22:06:00',
+      tags: ['Soup'],
+    },
+    ],
+  };
+
+  return {
+    getItem(key) {
+      return JSON.stringify(store[key]);
+    },
+
+    setItem(key, value) {
+      store[key] = value;
+    },
+
+    clear() {
+      store = {};
+    },
+
+    removeItem(key) {
+      delete store[key];
+    },
+
+    getAll() {
+      return store;
+    },
+  };
+})();
+
+export const storageMockFavoriteRecipes = (() => {
+  let store = {
+    favoriteRecipes: [{
+      id: '15997',
+      type: 'drink',
+      nationality: '',
+      category: ordinaryDrink,
       alcoholicOrNot: 'alcoholic',
       name: 'GG',
       image: 'https://www.thecocktaildb.com/images/media/drink/vyxwut1468875960.jpg',
