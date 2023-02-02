@@ -22,7 +22,7 @@ function StartRecipeButton({ recipeRequestApi }) {
       <button
         data-testid="start-recipe-btn"
         type="button"
-        style={ { position: 'fixed', bottom: 0 } }
+        style={ { position: 'fixed', bottom: 0, zIndex: '1' } }
         onClick={ handleClick }
       >
         Start Recipe
@@ -37,7 +37,7 @@ function StartRecipeButton({ recipeRequestApi }) {
         <button
           data-testid="start-recipe-btn"
           type="button"
-          style={ { position: 'fixed', bottom: 0 } }
+          style={ { position: 'fixed', bottom: 0, zIndex: '1' } }
           onClick={ handleClick }
         >
           Continue Recipe
@@ -48,7 +48,7 @@ function StartRecipeButton({ recipeRequestApi }) {
       <button
         data-testid="start-recipe-btn"
         type="button"
-        style={ { position: 'fixed', bottom: 0 } }
+        style={ { position: 'fixed', bottom: 0, zIndex: '1' } }
         onClick={ handleClick }
       >
         Start Recipe
@@ -63,7 +63,7 @@ function StartRecipeButton({ recipeRequestApi }) {
         <button
           data-testid="start-recipe-btn"
           type="button"
-          style={ { position: 'fixed', bottom: 0 } }
+          style={ { position: 'fixed', bottom: 0, zIndex: '1' } }
           onClick={ handleClick }
         >
           Continue Recipe
@@ -74,7 +74,7 @@ function StartRecipeButton({ recipeRequestApi }) {
       <button
         data-testid="start-recipe-btn"
         type="button"
-        style={ { position: 'fixed', bottom: 0 } }
+        style={ { position: 'fixed', bottom: 0, zIndex: '1' } }
         onClick={ handleClick }
       >
         Start Recipe
@@ -85,7 +85,7 @@ function StartRecipeButton({ recipeRequestApi }) {
     <button
       data-testid="start-recipe-btn"
       type="button"
-      style={ { position: 'fixed', bottom: 0 } }
+      style={ { position: 'fixed', bottom: 0, zIndex: '1' } }
       onClick={ handleClick }
     >
       Start Recipe
