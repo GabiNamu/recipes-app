@@ -1,3 +1,10 @@
+* {
+  box-sizing: border-box;
+  font-family: 'Poppins' , sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
 .meals {
   align-items: center;
   background: #0fa36b;
@@ -106,5 +113,3 @@
   top: 70%;
   width: 100%;
 }
-
-/* Login */

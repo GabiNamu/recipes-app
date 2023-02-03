@@ -1,0 +1,27 @@
+.profile-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.profile-container a {
+  border-bottom: 1px solid #FCA311;
+  color: #14213D;
+  margin-bottom: 0.5rem;
+  text-decoration: none;
+}
+
+.profile-container p {
+  margin-bottom: 2rem;
+}
+
+.profile-container button {
+  background-color: #14213D;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-weight: 600;
+  margin: 10% 0;
+  padding: 0.3rem 0.5rem;
+}

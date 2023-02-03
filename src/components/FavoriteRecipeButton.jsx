@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Proptypes from 'prop-types';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
+import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
+import '../styles/RecipeDetails.css';
 
 function FavoriteRecipeButton({ recipeRequestApi }) {
   const history = useHistory();
@@ -55,18 +55,8 @@ function FavoriteRecipeButton({ recipeRequestApi }) {
         localStorage.getItem('favoriteRecipes')
         && JSON.parse(localStorage.getItem('favoriteRecipes'))
           .some((recipe) => recipe.id === favoriteRecipe.id)
-          ? (
-            <img
-              src={ blackHeartIcon }
-              alt="notFavoriteIcon"
-              data-testid="favorite-btn"
-            />)
-          : (
-            <img
-              src={ whiteHeartIcon }
-              alt="favoriteIcon"
-              data-testid="favorite-btn"
-            />)
+          ? <AiFillHeart className="icon-details heart" />
+          : <AiOutlineHeart className="icon-details heart" />
       }
     </button>
   );

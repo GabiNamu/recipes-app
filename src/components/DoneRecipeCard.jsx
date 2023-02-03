@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react';
+import { BsFillShareFill } from 'react-icons/bs';
 import copy from 'clipboard-copy';
 import { useHistory } from 'react-router-dom';
 import { Context } from '../context/provider/ApiProvider';
@@ -17,19 +18,23 @@ function DoneRecipeCard() {
   return (
     <div>
       {Recipes.length !== 0 && Recipes.map((recipe, index) => (
-        <div key={ index } style={ { width: '200px' } }>
-          <button
-            type="button"
-            onClick={ () => history.push(`/${recipe.type}s/${recipe.id}`) }
-          >
-            <img
-              style={ { width: '200px' } }
-              src={ recipe.image }
-              alt={ recipe.name }
-              data-testid={ `${index}-horizontal-image` }
-            />
-          </button>
-
+        <div
+          key={ index }
+          className="main-container-done-favorites"
+        >
+          <div>
+            <button
+              type="button"
+              onClick={ () => history.push(`/${recipe.type}s/${recipe.id}`) }
+            >
+              <img
+                className="img-done-favorites"
+                src={ recipe.image }
+                alt={ recipe.name }
+                data-testid={ `${index}-horizontal-image` }
+              />
+            </button>
+          </div>
           <p data-testid={ `${index}-horizontal-top-text` }>
             { recipe.type === 'meal'
               ? `${recipe.nationality} - ${recipe.category}` : recipe.alcoholicOrNot }
@@ -44,13 +49,10 @@ function DoneRecipeCard() {
           <p data-testid={ `${index}-horizontal-done-date` }>{ recipe.doneDate }</p>
           <button
             type="button"
+            className="button-share-done-favorites"
             onClick={ () => handleShare(recipe.type, recipe.id) }
           >
-            <img
-              data-testid={ `${index}-horizontal-share-btn` }
-              src={ shareIcon }
-              alt="share icon"
-            />
+            <BsFillShareFill className="share-done-favorites" />
           </button>
           {show && <p>Link copied!</p> }
           { recipe.type === 'meal' && (

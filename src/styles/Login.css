@@ -1,19 +1,12 @@
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
 .login-container {
+  background-color: rgb(20, 33, 61);
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
+  gap: 0.5rem;
   margin: 20% auto;
   max-width: 300px;
-  background-color: #14213D;
   padding: 2rem;
-  border-radius: 10px;
-  /* box-shadow: 4px 4px 10px rgb(113, 113, 113); */
-  gap: 0.5rem;
 }
 
 .login-container img {
@@ -21,14 +14,16 @@
 }
 
 .login-container input {
-  padding: 0.5rem;
   border-radius: 5px;
+  padding: 0.5rem;
 }
 
 .login-container button {
-  padding: 0.5rem;
+  background-color: rgb(252, 163, 17);
   border-radius: 5px;
-  background-color: #FCA311;
+  color: white;
+  font-weight: 600;
+  padding: 0.5rem;
 }
 
 .login-container button:disabled {
@@ -36,11 +31,12 @@
 }
 
 .login-background {
-    background-image: linear-gradient(rgba(100, 100, 100, 0.318), rgba(63, 63, 63, 0.219)) , url('../images/login-bg.jpg');
-    background-size: cover;
-    object-fit: cover;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height: 100vh;
+  background-image: linear-gradient(rgba(100, 100, 100, 0.318), rgba(63, 63, 63, 0.281)) , 
+    url('../images/login-bg.jpg');
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+  object-fit: cover;
 }
