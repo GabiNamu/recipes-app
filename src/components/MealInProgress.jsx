@@ -75,7 +75,7 @@ function MealInProgress({ productId }) {
 
   const todaysDate = () => {
     const date = new Date();
-    return date.toISOString();
+    return date.toISOString().split('T')[0];
   };
 
   const handleFinish = () => {

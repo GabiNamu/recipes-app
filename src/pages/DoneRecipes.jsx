@@ -54,9 +54,8 @@ function DoneRecipes() {
           onClick={ () => handleClick('meal') }
         >
           <GiMeal className="icon-done-favorites" />
-
+          <p className="button-name-done-favorites">Meals</p>
         </button>
-        <p className="button-name-done-favorites">Meals</p>
         <button
           type="button"
           className="button-done-favorites"
@@ -64,9 +63,8 @@ function DoneRecipes() {
           onClick={ () => handleClick('drink') }
         >
           <BiDrink className="icon-done-favorites" />
-
+          <p className="button-name-done-favorites">Drinks</p>
         </button>
-        <p className="button-name-done-favorites">Drinks</p>
       </div>
       <DoneRecipeCard />
     </div>

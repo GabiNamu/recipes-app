@@ -6,8 +6,8 @@
 }
 
 .profile-container a {
-  border-bottom: 1px solid #FCA311;
-  color: #14213D;
+  border-bottom: 1px solid rgb(252, 163, 17);
+  color: rgb(20, 33, 61);
   margin-bottom: 0.5rem;
   text-decoration: none;
 }
@@ -17,7 +17,7 @@
 }
 
 .profile-container button {
-  background-color: #14213D;
+  background-color: rgb(20, 33, 61);
   border: none;
   border-radius: 5px;
   color: white;

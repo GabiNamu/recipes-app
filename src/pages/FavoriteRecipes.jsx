@@ -1,4 +1,7 @@
 import React, { useContext, useEffect } from 'react';
+import { MdFastfood } from 'react-icons/md';
+import { BiDrink } from 'react-icons/bi';
+import { GiMeal } from 'react-icons/gi';
 import FavoriteCard from '../components/FavoriteCard';
 import Header from '../components/Header';
 import { Context } from '../context/provider/ApiProvider';
@@ -31,27 +34,35 @@ function FavoriteRecipes() {
   return (
     <div>
       <Header title="Favorite Recipes" search={ false } />
-      <button
-        type="button"
-        data-testid="filter-by-all-btn"
-        onClick={ () => handleClick('all') }
-      >
-        All
-      </button>
-      <button
-        type="button"
-        data-testid="filter-by-meal-btn"
-        onClick={ () => handleClick('meal') }
-      >
-        Meals
-      </button>
-      <button
-        type="button"
-        data-testid="filter-by-drink-btn"
-        onClick={ () => handleClick('drink') }
-      >
-        Drinks
-      </button>
+      <div className="container-button-done-favorites">
+        <button
+          type="button"
+          className="button-done-favorites"
+          data-testid="filter-by-all-btn"
+          onClick={ () => handleClick('all') }
+        >
+          <MdFastfood className="icon-done-favorites" />
+          <p className="button-name-done-favorites">All</p>
+        </button>
+        <button
+          type="button"
+          className="button-done-favorites"
+          data-testid="filter-by-meal-btn"
+          onClick={ () => handleClick('meal') }
+        >
+          <GiMeal className="icon-done-favorites" />
+          <p className="button-name-done-favorites">Meals</p>
+        </button>
+        <button
+          type="button"
+          className="button-done-favorites"
+          data-testid="filter-by-drink-btn"
+          onClick={ () => handleClick('drink') }
+        >
+          <BiDrink className="icon-done-favorites" />
+          <p className="button-name-done-favorites">Drinks</p>
+        </button>
+      </div>
       <FavoriteCard />
     </div>
   );

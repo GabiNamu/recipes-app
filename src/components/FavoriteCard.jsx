@@ -1,9 +1,9 @@
 import React, { useContext, useState } from 'react';
+import { BsFillShareFill } from 'react-icons/bs';
+import { AiFillHeart } from 'react-icons/ai';
 import copy from 'clipboard-copy';
 import { useHistory } from 'react-router-dom';
 import { Context } from '../context/provider/ApiProvider';
-import shareIcon from '../images/shareIcon.svg';
-import blkHeart from '../images/blackHeartIcon.svg';
 
 function FavoriteCard() {
   const history = useHistory();
@@ -25,25 +25,30 @@ function FavoriteCard() {
     <div>
       {Recipes.length !== 0
         && Recipes.map((recipe, index) => (
-          <div key={ index } style={ { width: '200px' } }>
-            <button
-              type="button"
-              onClick={ () => history.push(`/${recipe.type}s/${recipe.id}`) }
-            >
-              <img
-                style={ { width: '200px' } }
-                src={ recipe.image }
-                alt={ recipe.name }
-                data-testid={ `${index}-horizontal-image` }
-              />
-            </button>
-
+          <div
+            key={ index }
+            className="main-container-done-favorites"
+          >
+            <div>
+              <button
+                type="button"
+                onClick={ () => history.push(`/${recipe.type}s/${recipe.id}`) }
+              >
+                <img
+                  className="img-done-favorites"
+                  src={ recipe.image }
+                  alt={ recipe.name }
+                  data-testid={ `${index}-horizontal-image` }
+                />
+              </button>
+            </div>
             <p data-testid={ `${index}-horizontal-top-text` }>
               {recipe.type === 'meal'
                 ? `${recipe.nationality} - ${recipe.category}`
                 : recipe.alcoholicOrNot}
             </p>
             <button
+              className="button-card-done-favorites"
               type="button"
               onClick={ () => history.push(`/${recipe.type}s/${recipe.id}`) }
             >
@@ -52,20 +57,16 @@ function FavoriteCard() {
 
             <button
               type="button"
+              className="button-share-done-favorites"
               onClick={ () => handleShare(recipe.type, recipe.id) }
             >
-              <img
-                data-testid={ `${index}-horizontal-share-btn` }
-                src={ shareIcon }
-                alt="share icon"
-              />
+              <BsFillShareFill className="share-favorites" />
             </button>
-            <button onClick={ () => handleFavorite(recipe.id) }>
-              <img
-                src={ blkHeart }
-                alt=""
-                data-testid={ `${index}-horizontal-favorite-btn` }
-              />
+            <button
+              onClick={ () => handleFavorite(recipe.id) }
+              className="button-favorites"
+            >
+              <AiFillHeart className="heart-favorites" />
             </button>
             {show && <p>Link copied!</p>}
           </div>

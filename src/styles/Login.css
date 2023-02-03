@@ -31,8 +31,7 @@
 }
 
 .login-background {
-  background-image: linear-gradient(rgba(100, 100, 100, 0.318), rgba(63, 63, 63, 0.281)) , 
-    url('../images/login-bg.jpg');
+  background-image: linear-gradient(#64646451, rgba(63, 63, 63, 0.281)) , url('../images/login-bg.jpg');
   background-size: cover;
   display: flex;
   flex-direction: column;

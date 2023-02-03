@@ -3,7 +3,6 @@ import { BsFillShareFill } from 'react-icons/bs';
 import copy from 'clipboard-copy';
 import { useHistory } from 'react-router-dom';
 import { Context } from '../context/provider/ApiProvider';
-import shareIcon from '../images/shareIcon.svg';
 
 function DoneRecipeCard() {
   const history = useHistory();
@@ -41,6 +40,7 @@ function DoneRecipeCard() {
           </p>
           <button
             type="button"
+            className="button-card-done-favorites"
             onClick={ () => history.push(`/${recipe.type}s/${recipe.id}`) }
           >
             <p data-testid={ `${index}-horizontal-name` }>{ recipe.name }</p>

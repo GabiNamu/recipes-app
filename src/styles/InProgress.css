@@ -27,8 +27,8 @@
 }
 
 .finish-btn {
-  background-color: #FCA311;
-  border: 2px solid #FCA311;
+  background-color: rgb(252, 163, 17);
+  border: 2px solid rgb(252, 163, 17);
   color: white;
   font-size: large;
 }
@@ -40,8 +40,8 @@
 
 .fav-share-container {
   display: flex;
-  justify-content: center;
   gap: 1rem;
+  justify-content: center;
 }
 
 .favorite-btn {
