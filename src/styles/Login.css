@@ -1,0 +1,41 @@
+.login-container {
+  background-color: rgb(20, 33, 61);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 20% auto;
+  max-width: 300px;
+  padding: 2rem;
+}
+
+.login-container img {
+  min-width: 200px;
+}
+
+.login-container input {
+  border-radius: 5px;
+  padding: 0.5rem;
+}
+
+.login-container button {
+  background-color: rgb(252, 163, 17);
+  border-radius: 5px;
+  color: white;
+  font-weight: 600;
+  padding: 0.5rem;
+}
+
+.login-container button:disabled {
+  background-color: grey;
+}
+
+.login-background {
+  background-image: linear-gradient(#64646451, rgba(63, 63, 63, 0.281)) , url('../images/login-bg.jpg');
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+  object-fit: cover;
+}

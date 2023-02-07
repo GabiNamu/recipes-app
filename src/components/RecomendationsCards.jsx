@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 function RecomendationsCards({ recipesRecomendations }) {
   return (
     <div className="container">
-      <h1>Recommended</h1>
+      <h1 className="subtitle-details">Recommended</h1>
       <div className="carousel">
         {
           recipesRecomendations.map((recipe, index) => (
@@ -12,15 +12,20 @@ function RecomendationsCards({ recipesRecomendations }) {
               key={ index }
               hidden={ index > 1 }
               data-testid={ `${index}-recommendation-card` }
-              className="item"
+              className="item card-recommended"
             >
               <img
+                className="img-recommended"
                 width="100%"
                 height="80%"
                 src={ recipe.strDrinkThumb || recipe.strMealThumb }
                 alt={ `Recipe Recomendation ${index}` }
               />
-              <h1 data-testid={ `${index}-recommendation-title` }>
+              <h1
+                style={ { color: 'white' } }
+                className="title-recommended"
+                data-testid={ `${index}-recommendation-title` }
+              >
                 { recipe.strDrink || recipe.strMeal }
 
               </h1>

@@ -1,7 +1,11 @@
 import React, { useContext, useEffect } from 'react';
+import { MdFastfood } from 'react-icons/md';
+import { BiDrink } from 'react-icons/bi';
+import { GiMeal } from 'react-icons/gi';
 import DoneRecipeCard from '../components/DoneRecipeCard';
 import Header from '../components/Header';
 import { Context } from '../context/provider/ApiProvider';
+import '../styles/DoneRecipes.css';
 
 function DoneRecipes() {
   const { setRecipes } = useContext(Context);
@@ -32,30 +36,36 @@ function DoneRecipes() {
   return (
     <div>
       <Header title="Done Recipes" search={ false } />
-      <button
-        type="button"
-        data-testid="filter-by-all-btn"
-        onClick={ () => handleClick('all') }
-      >
-        All
+      <div className="container-button-done-favorites">
+        <button
+          type="button"
+          className="button-done-favorites"
+          data-testid="filter-by-all-btn"
+          onClick={ () => handleClick('all') }
+        >
+          <MdFastfood className="icon-done-favorites" />
+          <p className="button-name-done-favorites">All</p>
+        </button>
 
-      </button>
-      <button
-        type="button"
-        data-testid="filter-by-meal-btn"
-        onClick={ () => handleClick('meal') }
-      >
-        Meals
-
-      </button>
-      <button
-        type="button"
-        data-testid="filter-by-drink-btn"
-        onClick={ () => handleClick('drink') }
-      >
-        Drinks
-
-      </button>
+        <button
+          type="button"
+          className="button-done-favorites"
+          data-testid="filter-by-meal-btn"
+          onClick={ () => handleClick('meal') }
+        >
+          <GiMeal className="icon-done-favorites" />
+          <p className="button-name-done-favorites">Meals</p>
+        </button>
+        <button
+          type="button"
+          className="button-done-favorites"
+          data-testid="filter-by-drink-btn"
+          onClick={ () => handleClick('drink') }
+        >
+          <BiDrink className="icon-done-favorites" />
+          <p className="button-name-done-favorites">Drinks</p>
+        </button>
+      </div>
       <DoneRecipeCard />
     </div>
   );

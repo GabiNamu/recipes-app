@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import shareIcon from '../images/shareIcon.svg';
+import { BsFillShareFill } from 'react-icons/bs';
+import '../styles/RecipeDetails.css';
 
 const clipBoard = require('clipboard-copy');
 
@@ -22,7 +23,7 @@ function ShareRecipeButton() {
         id="share-btn"
         onClick={ handleClick }
       >
-        <img src={ shareIcon } alt="ShareIcon" />
+        <BsFillShareFill className="icon-details share" />
       </button>
       {
         copiedLink && <p>Link copied!</p>

@@ -1,0 +1,27 @@
+.profile-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.profile-container a {
+  border-bottom: 1px solid rgb(252, 163, 17);
+  color: rgb(20, 33, 61);
+  margin-bottom: 0.5rem;
+  text-decoration: none;
+}
+
+.profile-container p {
+  margin-bottom: 2rem;
+}
+
+.profile-container button {
+  background-color: rgb(20, 33, 61);
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-weight: 600;
+  margin: 10% 0;
+  padding: 0.3rem 0.5rem;
+}

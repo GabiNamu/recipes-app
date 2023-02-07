@@ -5,6 +5,7 @@ import FavoriteRecipeButton from './FavoriteRecipeButton';
 import RecomendationsCards from './RecomendationsCards';
 import ShareRecipeButton from './ShareRecipeButton';
 import StartRecipeButton from './StartRecipeButton';
+import '../styles/RecipeDetails.css';
 
 function MealDetailsInterface({ props: [loading, setLoading, id] }) {
   const [recipeRequestApi, setRecipeRequestApi] = useState(null);
@@ -39,32 +40,48 @@ function MealDetailsInterface({ props: [loading, setLoading, id] }) {
 
   return (
     <div>
-      <h1 data-testid="recipe-category">
-        {recipeRequestApi.strCategory}
-      </h1>
-      <h2 data-testid="recipe-title">
-        {recipeRequestApi.strMeal}
-      </h2>
-      <img
-        width="40%"
-        src={ recipeRequestApi.strMealThumb }
-        alt="RecipeImg"
-        data-testid="recipe-photo"
-      />
-      {mealIngredients?.map((pair, index) => (
-        pair[1]
+      <div className="image-container-details">
+        <ShareRecipeButton />
+        <FavoriteRecipeButton
+          recipeRequestApi={ recipeRequestApi }
+        />
+        <h1 data-testid="recipe-category" className="title-details category-details">
+          {recipeRequestApi.strCategory}
+        </h1>
+        <h2 data-testid="recipe-title" className="title-details name-details">
+          {recipeRequestApi.strMeal}
+        </h2>
+        <img
+          className="image-details"
+          width="40%"
+          src={ recipeRequestApi.strMealThumb }
+          alt="RecipeImg"
+          data-testid="recipe-photo"
+        />
+      </div>
+      <h2 className="subtitle-details">Ingredients</h2>
+      <ul className="ul-details">
+        {mealIngredients?.map((pair, index) => (
+          pair[1]
       && (
-        <li key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
+        <li
+          className="li-details"
+          key={ index }
+          data-testid={ `${index}-ingredient-name-and-measure` }
+        >
           { `${pair[1]} `}
           { mealQuantityIngredients[index][1]
         && `: ${mealQuantityIngredients[index][1]}`}
         </li>
       )
-      ))}
-      <p data-testid="instructions">
+        ))}
+      </ul>
+      <h2 className="subtitle-details">Instructions</h2>
+      <p data-testid="instructions" className="text-details">
         {recipeRequestApi.strInstructions}
       </p>
       <iframe
+        className="video-details"
         width="80%"
         height="80%"
         src={ `https://www.youtube.com/embed/${mealRecipeVideoUrl}` }
@@ -73,10 +90,6 @@ function MealDetailsInterface({ props: [loading, setLoading, id] }) {
         clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowFullScreen
         data-testid="video"
-      />
-      <ShareRecipeButton />
-      <FavoriteRecipeButton
-        recipeRequestApi={ recipeRequestApi }
       />
       <RecomendationsCards
         recipesRecomendations={ drinksRecommendation

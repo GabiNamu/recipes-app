@@ -72,6 +72,7 @@ function StartRecipeButton({ recipeRequestApi }) {
     }
     return (
       <button
+        className="button-details"
         data-testid="start-recipe-btn"
         type="button"
         style={ { position: 'fixed', bottom: 0, zIndex: '1' } }
@@ -83,6 +84,7 @@ function StartRecipeButton({ recipeRequestApi }) {
   }
   return (
     <button
+      className="button-details"
       data-testid="start-recipe-btn"
       type="button"
       style={ { position: 'fixed', bottom: 0, zIndex: '1' } }

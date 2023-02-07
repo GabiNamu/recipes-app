@@ -1,0 +1,52 @@
+.header {
+  padding: 0.5rem;
+}
+
+.header a {
+  color: black;
+  font-size: xx-large;
+  text-decoration: none;
+}
+
+.header button {
+  background-color: white;
+  border: none;
+  font-size: xx-large;
+  margin: 0 5px;
+}
+
+.header h2 {
+  text-align: center;
+}
+
+.search-container {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0;
+}
+
+.search-container button {
+  background-color: rgb(252, 163, 17);
+  border: 1px solid rgb(252, 163, 17);
+  border-radius: 3px;
+  color: white;
+  font-size: medium;
+  font-weight: 600;
+  padding: 0.2rem 0.3rem;
+  transition: 0.3s;
+}
+
+.search-container button:hover {
+  background-color: white;
+  border: 1px solid rgb(20, 33, 61);
+  color: rgb(20, 33, 61);
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.search-container input {
+  border-radius: 5px;
+  margin: 0 5px;
+  text-align: center;
+}

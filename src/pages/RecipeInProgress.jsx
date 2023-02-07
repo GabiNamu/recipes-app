@@ -9,7 +9,7 @@ function RecipeInProgress() {
   const productId = thisPath.split('/')[2];
   return (
     <>
-      <h1>RecipeInProgress</h1>
+      <h2 style={ { textAlign: 'center', marginTop: '1rem' } }>Recipe in Progress</h2>
       <div>
         {thisPath.includes('meals') ? (
           // render meal in progress in case of route containing meals //

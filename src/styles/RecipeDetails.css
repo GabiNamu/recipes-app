@@ -1,0 +1,109 @@
+.image-container-details {
+  height: 161.85px;
+  margin-bottom: 5px;
+  position: relative;
+}
+
+.image-details {
+  height: 100%;
+  margin-left: -5px;
+  margin-top: -25px;
+  position: absolute;
+  width: 100%;
+}
+
+.title-details {
+  color: white;
+  position: absolute;
+  z-index: 1;
+}
+
+.category-details {
+  margin-left: 40%;
+  margin-top: -10px;
+}
+
+.name-details {
+  margin-left: 40%;
+  margin-top: 20px;
+}
+
+.icon-details {
+  margin-left: 200px;
+  margin-top: 10px;
+  position: absolute;
+  z-index: 1;
+}
+
+.share {
+  color: rgb(20, 33, 61);
+  font-size: 20px;
+  margin-left: 310px;
+}
+
+.heart {
+  color: rgb(20, 33, 61);
+  font-size: 25px;
+  margin-left: 340px;
+  margin-top: -18px;
+}
+
+.subtitle-details {
+  font-size: 25px;
+  margin-left: 30px;
+  margin-top: 20px;
+}
+
+.ul-details {
+  border: 0.55px solid rgb(177, 177, 177);
+  border-radius: 5.35px;
+  margin: 10px auto;
+  padding: 5px;
+  width: 90%;
+}
+
+.li-details {
+  list-style: none;
+  margin-left: 10px;
+}
+
+.text-details {
+  border: 0.55px solid rgb(177, 177, 177);
+  border-radius: 5.35px;
+  margin: 10px auto;
+  padding: 5px;
+  width: 90%;
+}
+
+.video-details {
+  border-radius: 10px;
+  height: 200px;
+  margin: 20px 30px;
+  margin-top: 20px;
+  width: 80%;
+}
+
+.card-recommended {
+  background-color: rgb(20, 33, 61);
+  border: 0.51px solid rgb(177, 177, 177);
+  border-radius: 5px;
+  color: white;
+  margin-bottom: 30px;
+}
+
+.img-recommended {
+  border-radius: 5px 5px 0 0;
+}
+
+.title-recommended {
+  font-weight: 400;
+  margin-left: -40px;
+  margin-top: 20px;
+}
+
+.button-details {
+  background-color: rgb(252, 163, 17);
+  color: white;
+  height: 40px;
+  width: 100%;
+}

@@ -1,0 +1,83 @@
+.button-done-favorites {
+  background-color: transparent;
+  border: none;
+  margin-bottom: 20px;
+}
+
+.icon-done-favorites {
+  color: rgb(252, 163, 17);
+  cursor: pointer;
+  font-size: 28px;
+  transition: 1s;
+}
+
+.icon-done-favorites:hover {
+  color: rgb(20, 33, 61);
+}
+
+.container-button-done-favorites {
+  align-items: center;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.img-done-favorites {
+  width: 80%;
+}
+
+.main-container-done-favorites {
+  background-color: rgb(20, 33, 61);
+  border-radius: 10px;
+  color: white;
+  margin: auto;
+  padding: 10px;
+  width: 90%;
+}
+
+.button-share-done-favorites {
+  background-color: transparent;
+  border: none;
+}
+
+.share-done-favorites {
+  color: rgb(252, 163, 17);
+  font-size: 20px;
+  margin-left: 280px;
+  position: absolute;
+}
+
+.button-name-done-favorites {
+  color: rgb(121, 125, 134);
+  font-weight: 300;
+  line-height: 9px;
+  text-align: center;
+}
+
+.button-card-done-favorites {
+  background-color: rgb(252, 163, 17);
+  border: none;
+  cursor: pointer;
+  padding: 0 0.5rem;
+}
+
+.button-favorites {
+  background-color: transparent;
+  border: none;
+}
+
+.share-favorites {
+  color: rgb(252, 163, 17);
+  font-size: 20px;
+  margin-left: 190px;
+  margin-top: -10px;
+  position: absolute;
+}
+
+.heart-favorites {
+  color: rgb(252, 163, 17);
+  font-size: 23px;
+  margin-left: 220px;
+  margin-top: -12px;
+  position: absolute;
+}

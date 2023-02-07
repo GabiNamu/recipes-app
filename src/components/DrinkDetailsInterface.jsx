@@ -36,36 +36,47 @@ function DrinkDetailsInterface({ props: [loading, setLoading, id] }) {
 
   return (
     <div>
-      <h1 data-testid="recipe-category">
-        { recipeRequestApi.strAlcoholic }
-      </h1>
-      <h2 data-testid="recipe-title">
-        {recipeRequestApi.strDrink}
-      </h2>
-      <img
-        width="40%"
-        src={ recipeRequestApi.strDrinkThumb }
-        alt="RecipeImg"
-        data-testid="recipe-photo"
-      />
-      {drinkIngredients?.map((pair, index) => (
-        pair[1]
+      <div className="image-container-details">
+        <ShareRecipeButton />
+        <FavoriteRecipeButton
+          recipeRequestApi={ recipeRequestApi }
+        />
+        <h1 data-testid="recipe-category" className="title-details category-details">
+          { recipeRequestApi.strAlcoholic }
+        </h1>
+        <h2 data-testid="recipe-title" className="title-details name-details">
+          {recipeRequestApi.strDrink}
+        </h2>
+        <img
+          className="image-details"
+          width="40%"
+          src={ recipeRequestApi.strDrinkThumb }
+          alt="RecipeImg"
+          data-testid="recipe-photo"
+        />
+      </div>
+      <h2 className="subtitle-details">Ingredients</h2>
+      <ul className="ul-details">
+        {drinkIngredients?.map((pair, index) => (
+          pair[1]
             && (
-              <li key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
+              <li
+                className="li-details"
+                key={ index }
+                data-testid={ `${index}-ingredient-name-and-measure` }
+              >
                 { `${pair[1]} `}
                 { drinkQuantityIngredients[index][1]
               && `: ${drinkQuantityIngredients[index][1]}`}
               </li>
             )
-      ))}
-      <p data-testid="instructions">
+        ))}
+      </ul>
+      <h2 className="subtitle-details">Instructions</h2>
+      <p data-testid="instructions" className="text-details">
         { recipeRequestApi.strInstructions}
       </p>
       <StartRecipeButton
-        recipeRequestApi={ recipeRequestApi }
-      />
-      <ShareRecipeButton />
-      <FavoriteRecipeButton
         recipeRequestApi={ recipeRequestApi }
       />
       <RecomendationsCards

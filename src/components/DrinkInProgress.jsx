@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import copy from 'clipboard-copy';
-import shareIcon from '../images/shareIcon.svg';
-import blkHeart from '../images/blackHeartIcon.svg';
-import whtHeart from '../images/whiteHeartIcon.svg';
+import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
+import { BsFillShareFill } from 'react-icons/bs';
 import { Context } from '../context/provider/ApiProvider';
+import '../styles/InProgress.css';
 
 function DrinkInProgress({ productId }) {
   const { setRecipes } = useContext(Context);
@@ -20,7 +20,9 @@ function DrinkInProgress({ productId }) {
   );
 
   useEffect(() => {
-    fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${productId}`)
+    fetch(
+      `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${productId}`,
+    )
       .then((response) => response.json())
       .then((data) => setCocktail(data.drinks[0]))
       .catch((error) => console.error(error));
@@ -75,7 +77,7 @@ function DrinkInProgress({ productId }) {
 
   const todaysDate = () => {
     const date = new Date();
-    return date.toISOString();
+    return date.toISOString().split('T')[0];
   };
 
   const handleFinish = () => {
@@ -134,7 +136,7 @@ function DrinkInProgress({ productId }) {
 
   return (
     <div>
-      <div>
+      <div className="progress-container">
         <img data-testid="recipe-photo" src={ cocktail.strDrinkThumb } alt="" />
         <h3 data-testid="recipe-title">{cocktail.strDrink}</h3>
         <h5 data-testid="recipe-category">{cocktail.strAlcoholic}</h5>
@@ -170,20 +172,23 @@ function DrinkInProgress({ productId }) {
           data-testid="finish-recipe-btn"
           disabled={ finishBtn }
           onClick={ handleFinish }
+          className="finish-btn"
         >
           Finish
         </button>
-        <button data-testid="share-btn" onClick={ handleShare }>
-          <img src={ shareIcon } alt="" />
-        </button>
-        <button onClick={ handleFavorite }>
-          {heart ? (
-            <img src={ blkHeart } alt="" data-testid="favorite-btn" />
-          ) : (
-            <img src={ whtHeart } alt="" data-testid="favorite-btn" />
-          )}
-        </button>
-        {success && <span>Link copied!</span>}
+        <div className="fav-share-container">
+          <button onClick={ handleFavorite } className="favorite-btn">
+            {heart ? <AiFillHeart /> : <AiOutlineHeart />}
+          </button>
+          <button
+            data-testid="share-btn"
+            onClick={ handleShare }
+            className="share-btn"
+          >
+            <BsFillShareFill />
+          </button>
+          {success && <span>Link copied!</span>}
+        </div>
       </div>
     </div>
   );

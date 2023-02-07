@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import copy from 'clipboard-copy';
-import shareIcon from '../images/shareIcon.svg';
-import blkHeart from '../images/blackHeartIcon.svg';
-import whtHeart from '../images/whiteHeartIcon.svg';
+import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
+import { BsFillShareFill } from 'react-icons/bs';
 import { Context } from '../context/provider/ApiProvider';
+import '../styles/InProgress.css';
 
 function MealInProgress({ productId }) {
   const { setRecipes } = useContext(Context);
@@ -75,7 +75,7 @@ function MealInProgress({ productId }) {
 
   const todaysDate = () => {
     const date = new Date();
-    return date.toISOString();
+    return date.toISOString().split('T')[0];
   };
 
   const handleFinish = () => {
@@ -134,10 +134,10 @@ function MealInProgress({ productId }) {
 
   return (
     <div>
-      <div>
+      <div className="progress-container">
         <img data-testid="recipe-photo" src={ mealDetails.strMealThumb } alt="" />
         <h3 data-testid="recipe-title">{mealDetails.strMeal}</h3>
-        <h5 data-testid="recipe-category">{mealDetails.strCategory}</h5>
+        <h5 data-testid="recipe-category">{`Category : ${mealDetails.strCategory}`}</h5>
         <h5>How to prepare your meal</h5>
         <p data-testid="instructions">{mealDetails.strInstructions}</p>
         <h5>Ingredients</h5>
@@ -170,20 +170,23 @@ function MealInProgress({ productId }) {
           data-testid="finish-recipe-btn"
           disabled={ finishBtn }
           onClick={ handleFinish }
+          className="finish-btn"
         >
           Finish
         </button>
-        <button data-testid="share-btn" onClick={ handleShare }>
-          <img src={ shareIcon } alt="" />
-        </button>
-        <button onClick={ handleFavorite }>
-          {heart ? (
-            <img src={ blkHeart } alt="" data-testid="favorite-btn" />
-          ) : (
-            <img src={ whtHeart } alt="" data-testid="favorite-btn" />
-          )}
-        </button>
-        {success && <span>Link copied!</span>}
+        <div className="fav-share-container">
+          <button onClick={ handleFavorite } className="favorite-btn">
+            {heart ? <AiFillHeart /> : <AiOutlineHeart />}
+          </button>
+          <button
+            data-testid="share-btn"
+            onClick={ handleShare }
+            className="share-btn"
+          >
+            <BsFillShareFill />
+          </button>
+          {success && <span>Link copied!</span>}
+        </div>
       </div>
     </div>
   );

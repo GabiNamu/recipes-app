@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { getMealByCategory } from '../context/api/mealDB';
 import { getCocktailByCategory } from '../context/api/cocktailDB';
 import { Context } from '../context/provider/ApiProvider';
+import '../styles/Header.css';
 
 function SearchBar() {
   const [search, setSearch] = useState({ radio: '', inputText: '' });
@@ -21,7 +22,6 @@ function SearchBar() {
         search.inputText,
         search.radio,
       );
-      console.log(resultMeals);
       setRecipeList(resultMeals);
       if (resultMeals.meals === null) {
         setRecipeList({});
@@ -48,7 +48,7 @@ function SearchBar() {
 
   return (
     <>
-      <div>
+      <div className="search-container">
         <input
           type="text"
           name="inputText"
@@ -56,7 +56,7 @@ function SearchBar() {
           onChange={ (e) => handleChange(e) }
         />
       </div>
-      <div>
+      <div className="search-container">
         <label htmlFor="ingredient">
           Ingredient
           <input
