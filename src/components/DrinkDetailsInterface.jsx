@@ -28,11 +28,15 @@ function DrinkDetailsInterface({ props: [loading, setLoading, id] }) {
   if (loading) {
     return <div>Carregando...</div>;
   }
-
-  const drinkIngredients = Object.entries(recipeRequestApi)
-    .filter((pair) => (pair[0].includes('strIngredient')));
-  const drinkQuantityIngredients = Object.entries(recipeRequestApi)
-    .filter((pair) => (pair[0].includes('strMeasure')));
+  console.log(recipeRequestApi);
+  let drinkIngredients = {};
+  let drinkQuantityIngredients = {};
+  if (recipeRequestApi) {
+    drinkIngredients = Object.entries(recipeRequestApi)
+      .filter((pair) => (pair[0].includes('strIngredient')));
+    drinkQuantityIngredients = Object.entries(recipeRequestApi)
+      .filter((pair) => (pair[0].includes('strMeasure')));
+  }
 
   return (
     <div>

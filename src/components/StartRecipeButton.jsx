@@ -13,9 +13,10 @@ function StartRecipeButton({ recipeRequestApi }) {
   };
 
   if (localStorage.getItem('doneRecipes')) {
+    console.log(JSON.parse(localStorage.getItem('doneRecipes')));
     if (JSON.parse(localStorage.getItem('doneRecipes'))
-      .find({}.id === recipeRequestApi.idDrink
-        || recipeRequestApi.idMeal)) {
+      .find(({ id }) => id === recipeRequestApi.idDrink
+        || id === recipeRequestApi.idMeal)) {
       return;
     }
     return (

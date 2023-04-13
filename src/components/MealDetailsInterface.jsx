@@ -30,13 +30,18 @@ function MealDetailsInterface({ props: [loading, setLoading, id] }) {
   if (loading) {
     return <div>Carregando...</div>;
   }
-
-  const mealIngredients = Object.entries(recipeRequestApi)
-    .filter((pair) => (pair[0].includes('strIngredient')));
-  const mealQuantityIngredients = Object.entries(recipeRequestApi)
-    .filter((pair) => (pair[0].includes('strMeasure')));
-  const mealRecipeVideoUrl = recipeRequestApi.strYoutube
-    .substr(mealSubStrIndexStart);
+  console.log(recipeRequestApi);
+  let mealIngredients = {};
+  let mealQuantityIngredients = {};
+  let mealRecipeVideoUrl = {};
+  if (recipeRequestApi) {
+    mealIngredients = Object.entries(recipeRequestApi)
+      .filter((pair) => (pair[0].includes('strIngredient')));
+    mealQuantityIngredients = Object.entries(recipeRequestApi)
+      .filter((pair) => (pair[0].includes('strMeasure')));
+    mealRecipeVideoUrl = recipeRequestApi.strYoutube
+      .substr(mealSubStrIndexStart);
+  }
 
   return (
     <div>
