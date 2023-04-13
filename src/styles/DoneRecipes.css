@@ -44,7 +44,24 @@
   color: rgb(252, 163, 17);
   font-size: 20px;
   margin-left: 280px;
-  position: absolute;
+
+  /* position: absolute; */
+}
+
+.doneRecipes-link {
+  background-color: rgba(20, 33, 61);
+  border-radius: 1rem;
+  color: rgb(252, 163, 17);
+  padding: 5px 10px;
+  text-decoration: none;
+}
+
+.doneRecipes-container-links {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin: auto;
+  margin-bottom: 5px;
 }
 
 .button-name-done-favorites {

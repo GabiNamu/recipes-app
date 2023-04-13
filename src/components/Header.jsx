@@ -12,12 +12,16 @@ function Header({ title, search }) {
   return (
     <div className="header">
       <Link to="/profile">
-        <CgProfile />
+        <CgProfile className="header-profile-icon" />
       </Link>
 
       { search === true && (
-        <button type="button" onClick={ () => setShow(!show) }>
-          <BiSearchAlt />
+        <button
+          type="button"
+          className="header-search-icon-button"
+          onClick={ () => setShow(!show) }
+        >
+          <BiSearchAlt className="header-search-icon" />
         </button>)}
 
       <h2 data-testid="page-title">{ title }</h2>

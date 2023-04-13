@@ -51,6 +51,7 @@ function RecipeCard({ recipeObj }) {
           >
             <div data-testid={ `${index}-recipe-card` }>
               <img
+                className="recipes-image"
                 src={
                   recipeObj === 'meals'
                     ? recipe.strMealThumb

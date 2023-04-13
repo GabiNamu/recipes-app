@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { MdFastfood } from 'react-icons/md';
 import { BiDrink } from 'react-icons/bi';
 import { GiMeal } from 'react-icons/gi';
@@ -36,6 +37,10 @@ function DoneRecipes() {
   return (
     <div>
       <Header title="Done Recipes" search={ false } />
+      <div className="doneRecipes-container-links">
+        <Link to="/meals" className="doneRecipes-link">Meals</Link>
+        <Link to="/drinks" className="doneRecipes-link">Drinks</Link>
+      </div>
       <div className="container-button-done-favorites">
         <button
           type="button"

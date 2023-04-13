@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import FavoriteRecipeButton from './FavoriteRecipeButton';
 import RecomendationsCards from './RecomendationsCards';
@@ -40,6 +41,7 @@ function DrinkDetailsInterface({ props: [loading, setLoading, id] }) {
 
   return (
     <div>
+      <Link to="/drinks" className="recipeDetails-link">Go back</Link>
       <div className="image-container-details">
         <ShareRecipeButton />
         <FavoriteRecipeButton

@@ -107,3 +107,20 @@
   height: 40px;
   width: 100%;
 }
+
+.recipeDetails-link {
+  background-color: rgba(20, 33, 61);
+  border-radius: 1rem;
+  color: rgb(252, 163, 17);
+  margin-left: 3px;
+  margin-top: 3px;
+  padding: 1rem;
+  position: absolute;
+  text-decoration: none;
+  z-index: 1;
+
+}
+
+.recipeDetails-link:hover {
+  cursor: pointer;
+}

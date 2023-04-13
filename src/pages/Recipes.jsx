@@ -47,8 +47,6 @@ function Recipes() {
         `https://www.themealdb.com/api/json/v1/1/filter.php?c=${e.target.id}`,
       );
       setRecipeList(result);
-      console.log(dobleClick.name);
-      console.log(e.target.id);
       setDobleClick({ name: e.target.id });
     }
     if (recipeObj === 'drinks') {
